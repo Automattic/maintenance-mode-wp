@@ -22,6 +22,12 @@ if ( defined( 'VIP_MAINTENANCE_MODE' ) && true === VIP_MAINTENANCE_MODE ) {
 			return;
 		}
 
+		// Prevents search engines to index the content of the maintenance page.
+		$protocol = wp_get_server_protocol();
+		header( "$protocol 503 Service Unavailable", true, 503 );
+		header( 'Content-Type: text/html; charset=utf-8' );
+		header( 'Retry-After: 600' );
+
 		if ( locate_template( 'template-maintenance-mode.php' ) ) {
 			get_template_part( 'template-maintenance-mode' );
 		} else {
