@@ -25,7 +25,7 @@ if ( defined( 'VIP_MAINTENANCE_MODE' ) && true === VIP_MAINTENANCE_MODE ) {
 		// Prevents search engines to index the content of the maintenance page.
 		status_header( 503 );
 		header( 'Content-Type: text/html; charset=utf-8' );
-		header( 'Retry-After: 600' );
+		header( 'Retry-After: 3600' );
 
 		if ( locate_template( 'template-maintenance-mode.php' ) ) {
 			get_template_part( 'template-maintenance-mode' );
