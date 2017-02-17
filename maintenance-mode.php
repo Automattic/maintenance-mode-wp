@@ -23,8 +23,7 @@ if ( defined( 'VIP_MAINTENANCE_MODE' ) && true === VIP_MAINTENANCE_MODE ) {
 		}
 
 		// Prevents search engines to index the content of the maintenance page.
-		$protocol = wp_get_server_protocol();
-		header( "$protocol 503 Service Unavailable", true, 503 );
+		status_header( 503 );
 		header( 'Content-Type: text/html; charset=utf-8' );
 		header( 'Retry-After: 600' );
 
