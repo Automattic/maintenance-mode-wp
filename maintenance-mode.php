@@ -17,7 +17,7 @@
 
 if ( defined( 'VIP_MAINTENANCE_MODE' ) && true === VIP_MAINTENANCE_MODE ) {
 	add_action( 'template_redirect', function() {
-		$required_capability = apply_filters( 'vip_maintenance_mode_reqiured_cap', 'edit_posts' );
+		$required_capability = apply_filters( 'vip_maintenance_mode_required_cap', 'edit_posts' );
 		if ( current_user_can( $required_capability ) ) {
 			return;
 		}
