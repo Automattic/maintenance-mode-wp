@@ -23,9 +23,21 @@ if ( defined( 'VIP_MAINTENANCE_MODE' ) && true === VIP_MAINTENANCE_MODE ) {
 		}
 
 		// Prevents search engines to index the content of the maintenance page.
-		status_header( 503 );
-		header( 'Content-Type: text/html; charset=utf-8' );
-		header( 'Retry-After: 3600' );
+		$respond_503 = apply_filters( 'vip_maintenance_mode_respond_503', true );
+
+		if ( true === $respond_503 ) {
+			status_header( 503 );
+
+			// Indicates how long the service is expected to be unavailable.
+			// Accepts a value in seconds or an http-date.
+			$retry_after = apply_filters( 'vip_maintenance_mode_retry_after', 3600 );
+
+			if ( is_int( $retry_after ) ) {
+				header( 'Retry-After: ' . absint( $retry_after ) );
+			} elseif ( strtotime( $retry_after ) > time() ) {
+				header( 'Retry-After: ' . gmdate( 'D, d M Y H:i:s T', strtotime( $retry_after ) ) );
+			}
+		}
 
 		if ( locate_template( 'template-maintenance-mode.php' ) ) {
 			get_template_part( 'template-maintenance-mode' );
