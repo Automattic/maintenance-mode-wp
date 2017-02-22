@@ -1,3 +1,4 @@
+<!doctype html>
 <html>
 <head>
 	<?php wp_head(); // allow for remote-login on mapped domains ?>
