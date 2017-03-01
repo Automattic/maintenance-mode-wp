@@ -22,14 +22,27 @@ if ( defined( 'VIP_MAINTENANCE_MODE' ) && true === VIP_MAINTENANCE_MODE ) {
 			return;
 		}
 
-		// Prevents search engines to index the content of the maintenance page.
+		/**
+		 * Filters wether to respond with a 503 status code.
+		 *
+		 * The 503 status code prevents search engines to index the content of the maintenance page.
+		 *
+		 * @since 0.1.1
+		 *
+		 * @param bool $bool Whether to respond with a 503 status code. Default true.
+		 */
 		$respond_503 = apply_filters( 'vip_maintenance_mode_respond_503', true );
 
 		if ( true === $respond_503 ) {
 			status_header( 503 );
 
-			// Indicates how long the service is expected to be unavailable.
-			// Accepts a value in seconds or an http-date.
+			/**
+			 * Filters the Retry-After value used to indicate how long the service is expected to be unavailable.
+			 *
+			 * @since 0.1.1
+			 *
+			 * @param int|string The delay in seconds or an http-date. Default to one hour.
+			 */
 			$retry_after = apply_filters( 'vip_maintenance_mode_retry_after', 3600 );
 
 			if ( is_int( $retry_after ) ) {
