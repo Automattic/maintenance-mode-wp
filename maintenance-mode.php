@@ -43,4 +43,4 @@ if ( defined( 'VIP_MAINTENANCE_MODE' ) && true === VIP_MAINTENANCE_MODE ) {
 function vip_maintenance_mode_load_plugin_textdomain() {
 	load_plugin_textdomain( 'maintenance-mode', FALSE, basename( dirname( __FILE__ ) ) . '/languages/' );
 }
-add_action( 'plugins_loaded', 'vip_maintenance_mode_load_plugin_textdomain' );
+add_action( 'init', 'vip_maintenance_mode_load_plugin_textdomain' );
