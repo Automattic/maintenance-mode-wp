@@ -1,6 +1,7 @@
 <!doctype html>
-<html>
+<html <?php language_attributes(); ?>>
 <head>
+	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<?php wp_head(); // allow for remote-login on mapped domains ?>
 </head>
 <body>
