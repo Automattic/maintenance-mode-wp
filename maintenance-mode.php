@@ -7,6 +7,8 @@
  * Author URI: https://vip.wordpress.com
  * Version: 0.1.0
  * License: GPLv2
+ * Text Domain: maintenance-mode
+ * Domain Path: /languages
  *
  * Usage:
  * - Add a template to your theme's root folder called `template-maintenance-mode.php`.
@@ -30,3 +32,15 @@ if ( defined( 'VIP_MAINTENANCE_MODE' ) && true === VIP_MAINTENANCE_MODE ) {
 		exit;
 	} );
 }
+
+/**
+ * Localize plugin
+ *
+ * @since 0.1.1
+ * @uses load_plugin_textdomain
+ * @return void
+ */
+function vip_maintenance_mode_load_plugin_textdomain() {
+	load_plugin_textdomain( 'maintenance-mode', FALSE, basename( dirname( __FILE__ ) ) . '/languages/' );
+}
+add_action( 'init', 'vip_maintenance_mode_load_plugin_textdomain' );

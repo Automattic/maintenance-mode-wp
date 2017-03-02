@@ -1,0 +1,49 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Project-Id-Version: Maintenance Mode\n"
+"POT-Creation-Date: 2017-03-01 22:42+0100\n"
+"PO-Revision-Date: 2017-03-01 22:32+0100\n"
+"Last-Translator: Benoît Chantre <mail@benoitchantre.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.12\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-WPHeader: maintenance-mode.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;"
+"_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: template-maintenance-mode.php:7
+msgid "Howdy!"
+msgstr ""
+
+#: template-maintenance-mode.php:8
+msgid "We're just freshening things up a bit; back in a few!"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "Maintenance Mode"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://vip.wordpress.com/plugins/maintenance-mode/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Shut down your site for a little while and do some maintenance on it!"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Automattic / WordPress.com VIP"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://vip.wordpress.com"
+msgstr ""
