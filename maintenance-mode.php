@@ -93,6 +93,47 @@ function vip_maintenance_mode_template_redirect() {
 add_action( 'template_redirect', 'vip_maintenance_mode_template_redirect' );
 
 /**
+ * Displays a notice in the admin bar to indicate that maintenance mode is enabled
+ *
+ * Only displayed to users who don't see the maintenance page.
+ *
+ * @since 0.1.1
+ */
+function vip_maintenance_mode_admin_bar_menu() {
+	global $wp_admin_bar;
+
+	$required_capability = apply_filters( 'vip_maintenance_mode_required_cap', 'edit_posts' );
+	if ( !current_user_can( $required_capability ) ) {
+		return;
+	}
+
+	$wp_admin_bar->add_menu( array(
+		'id'     => 'maintenance-mode',
+		'parent' => 'top-secondary',
+		'title'  => apply_filters( 'vip_maintenance_mode_admin_bar_title', __( 'Under maintenance', 'maintenance-mode' ) ),
+		'meta'   => array( 'class' => 'mm-notice' ),
+	) );
+}
+add_action( 'admin_bar_menu', 'vip_maintenance_mode_admin_bar_menu', 8 );
+
+/**
+ * Styles the admin bar notice
+ *
+ * @since 0.1.1
+ */
+function vip_maintenance_mode_admin_scripts() {
+	$styles = '#wpadminbar .mm-notice .ab-item {
+		background: #ffcc00 !important;
+		background: linear-gradient( #ffcc00, #e6b400 ) !important;
+		color: #23282d !important;
+		font-weight:500;
+	}';
+	wp_add_inline_style( 'admin-bar', $styles );
+}
+add_action( 'wp_enqueue_scripts', 'vip_maintenance_mode_admin_scripts' );
+add_action( 'admin_enqueue_scripts', 'vip_maintenance_mode_admin_scripts' );
+
+/**
  * Localize plugin
  *
  * @since 0.1.1
