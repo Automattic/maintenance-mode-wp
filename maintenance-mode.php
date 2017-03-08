@@ -36,6 +36,36 @@ function vip_maintenance_mode_template_redirect() {
 		return;
 	}
 
+	/**
+	 * Filters wether to respond with a 503 status code.
+	 *
+	 * The 503 status code prevents search engines to index the content of the maintenance page.
+	 *
+	 * @since 0.1.1
+	 *
+	 * @param bool $bool Whether to respond with a 503 status code. Default true.
+	 */
+	$respond_503 = apply_filters( 'vip_maintenance_mode_respond_503', true );
+
+	if ( true === $respond_503 ) {
+		status_header( 503 );
+
+		/**
+		 * Filters the Retry-After value used to indicate how long the service is expected to be unavailable.
+		 *
+		 * @since 0.1.1
+		 *
+		 * @param int|string The delay in seconds or an http-date. Default to one hour.
+		 */
+		$retry_after = apply_filters( 'vip_maintenance_mode_retry_after', 3600 );
+
+		if ( is_int( $retry_after ) ) {
+			header( 'Retry-After: ' . absint( $retry_after ) );
+		} elseif ( strtotime( $retry_after ) > time() ) {
+			header( 'Retry-After: ' . gmdate( 'D, d M Y H:i:s T', strtotime( $retry_after ) ) );
+		}
+	}
+
 	if ( locate_template( 'template-maintenance-mode.php' ) ) {
 		get_template_part( 'template-maintenance-mode' );
 	} else {
