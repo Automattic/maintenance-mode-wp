@@ -5,7 +5,7 @@
  * Description: Shut down your site for a little while and do some maintenance on it!
  * Author: Automattic / WordPress.com VIP
  * Author URI: https://vip.wordpress.com
- * Version: 0.1.0
+ * Version: 0.1.1
  * License: GPLv2
  * Text Domain: maintenance-mode
  * Domain Path: /languages
