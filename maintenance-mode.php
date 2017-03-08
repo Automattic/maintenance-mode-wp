@@ -25,7 +25,7 @@ if ( defined( 'VIP_MAINTENANCE_MODE' ) && true === VIP_MAINTENANCE_MODE ) {
 		}
 
 		/**
-		 * Filters wether to respond with a 503 status code.
+		 * Filters whether to respond with a 503 status code.
 		 *
 		 * The 503 status code prevents search engines to index the content of the maintenance page.
 		 *
