@@ -24,6 +24,23 @@ if ( !defined( 'VIP_MAINTENANCE_MODE' ) || true !== VIP_MAINTENANCE_MODE ) {
 }
 
 /**
+ * Displays a warning in the admin to inform users about the VIP_MAINTENANCE_MODE constant
+ *
+ * Only users who can activate plugins will see the warning.
+ *
+ * @since 0.1.1
+ */
+function vip_maintenance_mode_admin_notice__constant_not_set() {
+	if ( !current_user_can( 'activate_plugins' ) ) {
+		return;
+	}
+
+	$class = 'notice notice-warning';
+	$message = __( 'Maintenance Mode won\'t work until you set the VIP_MAINTENANCE_MODE constant to <code>true</code>.', 'maintenance-mode' );
+	printf( '<div class="%1$s"><p>%2$s</p></div>', esc_attr( $class ), wp_kses( $message, array( 'code' => array() ) ) );
+}
+
+/**
  * Redirects visitors and users without edit_posts capability to the maintenance page
  *
  * Uses the plugin template when there's no template called `template-maintenance-mode.php` in the theme root folder.
@@ -86,20 +103,3 @@ function vip_maintenance_mode_load_plugin_textdomain() {
 	load_plugin_textdomain( 'maintenance-mode', FALSE, basename( dirname( __FILE__ ) ) . '/languages/' );
 }
 add_action( 'init', 'vip_maintenance_mode_load_plugin_textdomain' );
-
-/**
- * Displays a warning in the admin to inform users about the VIP_MAINTENANCE_MODE constant
- *
- * Only users who can activate plugins will see the warning.
- *
- * @since 0.1.1
- */
-function vip_maintenance_mode_admin_notice__constant_not_set() {
-	if ( !current_user_can( 'activate_plugins' ) ) {
-		return;
-	}
-
-	$class = 'notice notice-warning';
-	$message = __( 'Maintenance Mode won\'t work until you set the VIP_MAINTENANCE_MODE constant to <code>true</code>.', 'maintenance-mode' );
-	printf( '<div class="%1$s"><p>%2$s</p></div>', esc_attr( $class ), wp_kses( $message, array( 'code' => array() ) ) );
-}
