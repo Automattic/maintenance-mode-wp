@@ -19,6 +19,11 @@
 
 if ( defined( 'VIP_MAINTENANCE_MODE' ) && true === VIP_MAINTENANCE_MODE ) {
 	add_action( 'template_redirect', function() {
+		/**
+		 * Filters the required capability to avoid the redirect to the maintenance page.
+		 *
+		 * @since 0.1.0
+		 */
 		$required_capability = apply_filters( 'vip_maintenance_mode_required_cap', 'edit_posts' );
 		if ( current_user_can( $required_capability ) ) {
 			return;
