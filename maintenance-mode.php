@@ -5,7 +5,7 @@
  * Description: Shut down your site for a little while and do some maintenance on it!
  * Author: Automattic / WordPress.com VIP
  * Author URI: https://vip.wordpress.com
- * Version: 0.1.0
+ * Version: 0.1.1
  * License: GPLv2
  * Text Domain: maintenance-mode
  * Domain Path: /languages
@@ -48,13 +48,18 @@ function vip_maintenance_mode_admin_notice__constant_not_set() {
  * @since 0.1.1
  */
 function vip_maintenance_mode_template_redirect() {
+	/**
+	 * Filters the required capability to avoid the redirect to the maintenance page.
+	 *
+	 * @since 0.1.0
+	 */
 	$required_capability = apply_filters( 'vip_maintenance_mode_required_cap', 'edit_posts' );
 	if ( current_user_can( $required_capability ) ) {
 		return;
 	}
 
 	/**
-	 * Filters wether to respond with a 503 status code.
+	 * Filters whether to respond with a 503 status code.
 	 *
 	 * The 503 status code prevents search engines to index the content of the maintenance page.
 	 *
