@@ -1,0 +1,9 @@
+.maintenance-mode {
+	background-color: #fff;
+	color: #333;
+}
+
+html .maintenance-mode::before,
+html .maintenance-mode::after {
+	display: none;
+}

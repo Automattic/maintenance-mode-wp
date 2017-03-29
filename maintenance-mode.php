@@ -98,6 +98,20 @@ function vip_maintenance_mode_template_redirect() {
 add_action( 'template_redirect', 'vip_maintenance_mode_template_redirect' );
 
 /**
+ * Styles the plugin template
+ *
+ * @since 0.3.0
+ */
+function vip_maintenance_mode_template_styles() {
+	$required_capability = apply_filters( 'vip_maintenance_mode_required_cap', 'edit_posts' );
+	if ( locate_template( 'template-maintenance-mode.php' ) || current_user_can( $required_capability ) ) {
+		return;
+	}
+	wp_enqueue_style( 'vip_maintenance_mode', plugins_url( 'css/maintenance-mode-template.css', __FILE__ ), array(), '0.3' );
+}
+add_action( 'wp_enqueue_scripts', 'vip_maintenance_mode_template_styles', 100 );
+
+/**
  * Displays a notice in the admin bar to indicate that maintenance mode is enabled
  *
  * Only displayed to users who don't see the maintenance page.
