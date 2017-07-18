@@ -104,6 +104,37 @@ function vip_maintenance_mode_template_redirect() {
 }
 add_action( 'template_redirect', 'vip_maintenance_mode_template_redirect' );
 
+function vip_maintenance_mode_restrict_rest_api( $result ) {
+	if ( ! empty( $result ) ) {
+		return $result;
+	}
+
+	$should_restrict_api = apply_filters( 'vip_maintenance_mode_restrict_rest_api', true );
+	if ( ! $should_restrict_api ) {
+		return $result;
+	}
+
+	$error_message = apply_filters( 'vip_maintenance_mode_rest_api_error_message', __( 'REST API access is currently restricted while we refresh things a bit.', 'maintenance-mode' ) );
+	$unauthorized_error = new WP_Error(
+		'vip_maintenance_mode_rest_not_logged_in',
+		$error_message,
+		array(
+			'status' => 401,
+		)
+	);
+
+	if ( ! is_user_logged_in() ) {
+		return $unauthorized_error;
+	}
+
+	if ( ! current_user_can_bypass_vip_maintenance_mode() ) {
+		return $unauthorized_error;
+	}
+
+	return $result;
+}
+add_action( 'rest_authentication_errors', 'vip_maintenance_mode_maybe_restrict_rest_api' );
+
 /**
  * Displays a notice in the admin bar to indicate that maintenance mode is enabled
  *
