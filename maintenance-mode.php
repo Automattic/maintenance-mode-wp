@@ -41,6 +41,19 @@ function vip_maintenance_mode_admin_notice__constant_not_set() {
 }
 
 /**
+ * Checks to see if the current user can bypass maintenance mode
+ */
+function current_user_can_bypass_vip_maintenance_mode() {
+	/**
+	 * Filters the required capability to avoid the redirect to the maintenance page.
+	 *
+	 * @since 0.1.0
+	 */
+	$required_capability = apply_filters( 'vip_maintenance_mode_required_cap', 'edit_posts' );
+	return current_user_can( $required_capability );
+}
+
+/**
  * Redirects visitors and users without edit_posts capability to the maintenance page
  *
  * Uses the plugin template when there's no template called `template-maintenance-mode.php` in the theme root folder.
@@ -48,13 +61,7 @@ function vip_maintenance_mode_admin_notice__constant_not_set() {
  * @since 0.1.1
  */
 function vip_maintenance_mode_template_redirect() {
-	/**
-	 * Filters the required capability to avoid the redirect to the maintenance page.
-	 *
-	 * @since 0.1.0
-	 */
-	$required_capability = apply_filters( 'vip_maintenance_mode_required_cap', 'edit_posts' );
-	if ( current_user_can( $required_capability ) ) {
+	if ( current_user_can_bypass_vip_maintenance_mode() ) {
 		return;
 	}
 
@@ -107,8 +114,7 @@ add_action( 'template_redirect', 'vip_maintenance_mode_template_redirect' );
 function vip_maintenance_mode_admin_bar_menu() {
 	global $wp_admin_bar;
 
-	$required_capability = apply_filters( 'vip_maintenance_mode_required_cap', 'edit_posts' );
-	if ( !current_user_can( $required_capability ) ) {
+	if ( ! current_user_can_bypass_vip_maintenance_mode() ) {
 		return;
 	}
 
