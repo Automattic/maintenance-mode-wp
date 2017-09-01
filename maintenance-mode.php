@@ -41,6 +41,19 @@ function vip_maintenance_mode_admin_notice__constant_not_set() {
 }
 
 /**
+ * Checks to see if the current user can bypass maintenance mode
+ */
+function current_user_can_bypass_vip_maintenance_mode() {
+	/**
+	 * Filters the required capability to avoid the redirect to the maintenance page.
+	 *
+	 * @since 0.1.0
+	 */
+	$required_capability = apply_filters( 'vip_maintenance_mode_required_cap', 'edit_posts' );
+	return current_user_can( $required_capability );
+}
+
+/**
  * Redirects visitors and users without edit_posts capability to the maintenance page
  *
  * Uses the plugin template when there's no template called `template-maintenance-mode.php` in the theme root folder.
@@ -48,13 +61,7 @@ function vip_maintenance_mode_admin_notice__constant_not_set() {
  * @since 0.1.1
  */
 function vip_maintenance_mode_template_redirect() {
-	/**
-	 * Filters the required capability to avoid the redirect to the maintenance page.
-	 *
-	 * @since 0.1.0
-	 */
-	$required_capability = apply_filters( 'vip_maintenance_mode_required_cap', 'edit_posts' );
-	if ( current_user_can( $required_capability ) ) {
+	if ( current_user_can_bypass_vip_maintenance_mode() ) {
 		return;
 	}
 
@@ -97,6 +104,37 @@ function vip_maintenance_mode_template_redirect() {
 }
 add_action( 'template_redirect', 'vip_maintenance_mode_template_redirect' );
 
+function vip_maintenance_mode_restrict_rest_api( $result ) {
+	if ( ! empty( $result ) ) {
+		return $result;
+	}
+
+	$should_restrict_api = apply_filters( 'vip_maintenance_mode_restrict_rest_api', true );
+	if ( ! $should_restrict_api ) {
+		return $result;
+	}
+
+	$error_message = apply_filters( 'vip_maintenance_mode_rest_api_error_message', __( 'REST API access is currently restricted while we refresh things a bit.', 'maintenance-mode' ) );
+	$unauthorized_error = new WP_Error(
+		'vip_maintenance_mode_rest_not_logged_in',
+		$error_message,
+		array(
+			'status' => 401,
+		)
+	);
+
+	if ( ! is_user_logged_in() ) {
+		return $unauthorized_error;
+	}
+
+	if ( ! current_user_can_bypass_vip_maintenance_mode() ) {
+		return $unauthorized_error;
+	}
+
+	return $result;
+}
+add_action( 'rest_authentication_errors', 'vip_maintenance_mode_maybe_restrict_rest_api' );
+
 /**
  * Displays a notice in the admin bar to indicate that maintenance mode is enabled
  *
@@ -107,8 +145,7 @@ add_action( 'template_redirect', 'vip_maintenance_mode_template_redirect' );
 function vip_maintenance_mode_admin_bar_menu() {
 	global $wp_admin_bar;
 
-	$required_capability = apply_filters( 'vip_maintenance_mode_required_cap', 'edit_posts' );
-	if ( !current_user_can( $required_capability ) ) {
+	if ( ! current_user_can_bypass_vip_maintenance_mode() ) {
 		return;
 	}
 
