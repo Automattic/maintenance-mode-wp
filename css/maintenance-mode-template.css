@@ -1,0 +1,29 @@
+/* Hides potential pseudo elements that could be added by the theme. */
+html .maintenance-mode::before,
+html .maintenance-mode::after {
+	display: none;
+}
+
+.maintenance-mode {
+	background-color: #f6f6f6;
+	color: #333;
+	text-align: center;
+	margin: 0;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.maintenance-mode h1 {
+	font-size: 1.75em;
+	line-height: 1.2;
+	margin: 1rem auto;
+	padding: 0; /* Remove potential padding added from the theme */
+	max-width: 15em;
+}
+
+.maintenance-mode p {
+	margin: 0;
+}
