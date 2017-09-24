@@ -27,3 +27,12 @@ html .maintenance-mode::after {
 .maintenance-mode p {
 	margin: 0;
 }
+
+.maintenance-mode-icon {
+	width: 5em;
+	height: auto;
+}
+
+.maintenance-mode-icon path {
+	fill: #333;
+}

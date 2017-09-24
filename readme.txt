@@ -31,3 +31,8 @@ Usage:
 
 = 0.1.0 =
 * Initial plugin
+
+== Credits ==
+
+Icon created by Rashida Luqman Kheriwala from the Noun Project https://thenounproject.com/search/?q=maintenance&i=148984, [Creative Commons](https://creativecommons.org)
+Optimized with SVG Optimiser by Peter Collingridge.
