@@ -3,7 +3,7 @@ Contributors: wpcomvip, automattic, benoitchantre, emrikol, philipjohn
 Tags: maintenance-mode maintenance
 Requires at least: 4.6
 Tested up to: 4.7
-Stable tag: 0.2.0
+Stable tag: 0.2.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -24,6 +24,9 @@ Usage:
 1. Activate.
 
 == Changelog ==
+
+= 0.2.1 =
+* Stop returning a 503 to Nagios on WPCom and VipGo to prevent alerting as a server error
 
 = 0.2.0 =
 * Return a 503 header while maintenance mode is active (props benoitchantre)
