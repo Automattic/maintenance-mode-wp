@@ -1,0 +1,10 @@
+{
+    "name"       : "automattic/maintenance-mode-wp",
+    "description": "Shut down your site for a little while and do some maintenance on it.",
+    "homepage"   : "https://vip.wordpress.com/plugins/maintenance-mode/",
+    "type"       : "wordpress-plugin",
+    "license"    : "GPL-2.0+",
+    "require"    : {
+        "composer/installers": "~1.0"
+    }
+}
