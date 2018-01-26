@@ -133,7 +133,7 @@ function vip_maintenance_mode_restrict_rest_api( $result ) {
 
 	return $result;
 }
-add_action( 'rest_authentication_errors', 'vip_maintenance_mode_maybe_restrict_rest_api' );
+add_action( 'rest_authentication_errors', 'vip_maintenance_mode_restrict_rest_api' );
 
 /**
  * Displays a notice in the admin bar to indicate that maintenance mode is enabled
