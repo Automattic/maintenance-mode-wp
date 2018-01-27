@@ -9,7 +9,7 @@
  *
  * @return bool Should maintenance_mode set a 503 header
  */
-function wpcom_vip_maintenance_mode_do_not_respond_503_for_nagios() {
+function wpcom_vip_maintenance_mode_do_not_respond_503_for_nagios( $should_set_503 ) {
 	$user_agent = ! empty( $_SERVER['HTTP_USER_AGENT'] ) ? $_SERVER['HTTP_USER_AGENT'] : '';
 
 	// The request comes from Nagios so deny the 503 header being set.
@@ -19,8 +19,7 @@ function wpcom_vip_maintenance_mode_do_not_respond_503_for_nagios() {
 		return false;
 	}
 
-	// Not a Nagios request so allow the 503 header to be set.
-	return true;
+	return $should_set_503;
 }
 
-add_filter( 'vip_maintenance_mode_respond_503', 'wpcom_vip_maintenance_mode_do_not_respond_503_for_nagios', 30, 0 );
+add_filter( 'vip_maintenance_mode_respond_503', 'wpcom_vip_maintenance_mode_do_not_respond_503_for_nagios', 30 );
