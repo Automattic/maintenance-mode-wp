@@ -10,17 +10,17 @@
  * @return bool Should maintenance_mode set a 503 header
  */
 function wpcom_vip_maintenance_mode_do_not_respond_503_for_nagios() {
+	$user_agent = ! empty( $_SERVER['HTTP_USER_AGENT'] ) ? $_SERVER['HTTP_USER_AGENT'] : '';
 
-	// Check if request is coming from Nagios.
-	if ( ! empty( $_SERVER['HTTP_USER_AGENT'] ) && false === strpos( $_SERVER['HTTP_USER_AGENT'], 'check_http' ) ) {
-
-		// Not a Nagios request so allow the 503 header to be set.
-		return true;
-	} else {
-
-		// The request comes from Nagios so deny the 503 header being set.
+	// The request comes from Nagios so deny the 503 header being set.
+	// Desktop checks use something like `check_http/v2.2.1 (nagios-plugins 2.2.1)`.
+	// Mobile checks use `iphone`.
+	if ( false !== strpos( $user_agent, 'check_http' ) || 'iphone' === $user_agent ) {
 		return false;
 	}
+
+	// Not a Nagios request so allow the 503 header to be set.
+	return true;
 }
 
 add_filter( 'vip_maintenance_mode_respond_503', 'wpcom_vip_maintenance_mode_do_not_respond_503_for_nagios', 30, 0 );
