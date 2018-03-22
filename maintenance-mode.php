@@ -114,12 +114,12 @@ function vip_maintenance_mode_restrict_rest_api( $result ) {
 		return $result;
 	}
 
-	$error_message = apply_filters( 'vip_maintenance_mode_rest_api_error_message', __( 'REST API access is currently restricted while we refresh things a bit.', 'maintenance-mode' ) );
+	$error_message = apply_filters( 'vip_maintenance_mode_rest_api_error_message', __( 'REST API access is currently restricted, while this site is undergoing maintenance.', 'maintenance-mode' ) );
 	$unauthorized_error = new WP_Error(
-		'vip_maintenance_mode_rest_not_logged_in',
+		'vip_maintenance_mode_unauthorized',
 		$error_message,
 		array(
-			'status' => 401,
+			'status' => 503,
 		)
 	);
 
