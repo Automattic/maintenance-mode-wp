@@ -114,9 +114,9 @@ function vip_maintenance_mode_restrict_rest_api( $result ) {
 		return $result;
 	}
 
-	$error_message = apply_filters( 'vip_maintenance_mode_rest_api_error_message', __( 'REST API access is currently restricted, while this site is undergoing maintenance.', 'maintenance-mode' ) );
-	$unauthorized_error = new WP_Error(
-		'vip_maintenance_mode_unauthorized',
+	$error_message = apply_filters( 'vip_maintenance_mode_rest_api_error_message', __( 'REST API access is currently restricted while this site is undergoing maintenance.', 'maintenance-mode' ) );
+	$maintenace_rest_error = new WP_Error(
+		'vip_maintenance_mode_rest_error',
 		$error_message,
 		array(
 			'status' => 503,
@@ -124,11 +124,11 @@ function vip_maintenance_mode_restrict_rest_api( $result ) {
 	);
 
 	if ( ! is_user_logged_in() ) {
-		return $unauthorized_error;
+		return $maintenace_rest_error;
 	}
 
 	if ( ! current_user_can_bypass_vip_maintenance_mode() ) {
-		return $unauthorized_error;
+		return $maintenace_rest_error;
 	}
 
 	return $result;
