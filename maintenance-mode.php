@@ -95,6 +95,8 @@ function vip_maintenance_mode_template_redirect() {
 		}
 	}
 
+	header( 'X-Maintenance-Mode-WP: true' );
+	
 	if ( locate_template( 'template-maintenance-mode.php' ) ) {
 		get_template_part( 'template-maintenance-mode' );
 	} else {
