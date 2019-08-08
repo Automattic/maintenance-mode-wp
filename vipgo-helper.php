@@ -5,7 +5,7 @@
  *
  * Maintenance Mode sets a 503 header on page requests if Maintenance Mode is enabled and this leads to Nagios
  * reporting lots of server errors and Jetpack not being able to verify connection status for sites that are just in maintenance_mode. This function sets the filter
- * response that Maintenance Mode uses to determine if it should set teh 503 status header or not.
+ * response that Maintenance Mode uses to determine if it should set the 503 status header or not.
  *
  * @return bool Should Maintenance Mode set a 503 header
  */
