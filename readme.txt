@@ -25,6 +25,9 @@ Usage:
 
 == Changelog ==
 
+= 0.2.2 =
+* Stop returning a 503 to Jetpack requests to prevent broken connection verification
+
 = 0.2.1 =
 * Stop returning a 503 to Nagios on WPCom and VipGo to prevent alerting as a server error
 
