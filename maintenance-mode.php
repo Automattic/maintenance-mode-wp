@@ -3,54 +3,152 @@
  * Plugin Name: Maintenance Mode
  * Plugin URI: https://vip.wordpress.com/plugins/maintenance-mode/
  * Description: Shut down your site for a little while and do some maintenance on it!
- * Author: Automattic / WordPress.com VIP
+ * Author: Automattic / WordPress VIP
  * Author URI: https://vip.wordpress.com
- * Version: 0.2.2
+ * Version: 0.3.0
  * License: GPLv2
  * Text Domain: maintenance-mode
  * Domain Path: /languages
- *
- * Usage:
- * - Add a template to your theme's root folder called `template-maintenance-mode.php`.
- * - This should be a simple HTML page that should include the message you want to show your visitors.
- * - Note: the template should include `wp_head()` and `wp_footer()` calls.
- * - Add the VIP_MAINTENANCE_MODE constant to your theme and set to `true`.
  */
-
-// Stops the execution early if the VIP_MAINTENANCE_MODE constant is not set to `true`.
-if ( !defined( 'VIP_MAINTENANCE_MODE' ) || true !== VIP_MAINTENANCE_MODE ) {
-	add_action( 'admin_notices', 'vip_maintenance_mode_admin_notice__constant_not_set' );
-	return;
-}
 
 /**
- * Displays a warning in the admin to inform users about the VIP_MAINTENANCE_MODE constant
+ * Avoid direct plugin access
  *
- * Only users who can activate plugins will see the warning.
+ * @since 0.2.3
+ */
+defined( 'ABSPATH' ) || exit;
+
+/**
+ * Localize plugin
  *
  * @since 0.1.1
+ * @uses load_plugin_textdomain
  */
-function vip_maintenance_mode_admin_notice__constant_not_set() {
-	if ( !current_user_can( 'activate_plugins' ) ) {
-		return;
-	}
+function vip_maintenance_mode_load_plugin_textdomain() {
+	load_plugin_textdomain( 'maintenance-mode', FALSE, basename( dirname( __FILE__ ) ) . '/languages/' );
+}
+add_action( 'plugins_loaded', 'vip_maintenance_mode_load_plugin_textdomain' );
 
-	$class = 'notice notice-warning';
-	$message = __( 'Maintenance Mode won\'t work until you set the VIP_MAINTENANCE_MODE constant to <code>true</code>.', 'maintenance-mode' );
-	printf( '<div class="%1$s"><p>%2$s</p></div>', esc_attr( $class ), wp_kses( $message, array( 'code' => array() ) ) );
+/**
+ * Add settings link on plugin page
+ *
+ * @since 1.0.0
+ * @param array $links The original array with customizer links.
+ * @return array $links The updated array with customizer links.
+ */
+function vip_maintenance_mode_settings_link( $links ) {
+	$admin_url     = admin_url( 'customize.php?autofocus[control]=vip_maintenance_mode_enable' );
+	$settings_link = sprintf( '<a href="%s">%s</a>', $admin_url, __( 'Settings', 'maintenance-mode' ) );
+	array_unshift( $links, $settings_link );
+
+	return $links;
+}
+add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'vip_maintenance_mode_settings_link' );
+
+/**
+ * Checks to see if the maintenance mode is activated
+ * 
+ * @since 0.2.3
+ * @return bool Return is maintenance mode is activated.
+ */
+function vip_maintenance_mode_is_activated() {
+	return get_option( 'vip_maintenance_mode_enable' ) || defined( 'VIP_MAINTENANCE_MODE' ) || current_user_can_bypass_vip_maintenance_mode();
 }
 
 /**
  * Checks to see if the current user can bypass maintenance mode
+ * 
+ * @since 0.1.0
+ * @return bool Whether the current user has the given capability.
  */
 function current_user_can_bypass_vip_maintenance_mode() {
-	/**
-	 * Filters the required capability to avoid the redirect to the maintenance page.
-	 *
-	 * @since 0.1.0
-	 */
 	$required_capability = apply_filters( 'vip_maintenance_mode_required_cap', 'edit_posts' );
 	return current_user_can( $required_capability );
+}
+
+/**
+ * Displays a notice in the admin bar to indicate that maintenance mode is enabled
+ *
+ * Only displayed to users who don't see the maintenance page.
+ *
+ * @since 0.1.1
+ */
+function vip_maintenance_mode_admin_bar_menu() {
+	global $wp_admin_bar;
+
+	if ( ! vip_maintenance_mode_is_activated() ) {
+		return;
+	}
+
+	$wp_admin_bar->add_menu( array(
+		'id'     => 'maintenance-mode',
+		'parent' => 'top-secondary',
+		'title'  => apply_filters( 'vip_maintenance_mode_admin_bar_title', __( 'Under maintenance', 'maintenance-mode' ) ),
+		'meta'   => array( 'class' => 'mm-notice' ),
+	) );
+}
+add_action( 'admin_bar_menu', 'vip_maintenance_mode_admin_bar_menu', 8 );
+
+/**
+ * Styles the admin bar notice
+ *
+ * @since 0.1.1
+ */
+function vip_maintenance_mode_admin_scripts() {
+	$styles = '#wpadminbar .mm-notice .ab-item {
+		background: #BF616A !important;
+		color: #ECEFF4 !important;
+		font-weight:500;
+	}';
+	wp_add_inline_style( 'admin-bar', $styles );
+}
+add_action( 'wp_enqueue_scripts', 'vip_maintenance_mode_admin_scripts' );
+add_action( 'admin_enqueue_scripts', 'vip_maintenance_mode_admin_scripts' );
+
+/**
+ * Enhance customizer
+ *
+ * @since 0.2.3
+ * @param WP_Customize_Manager $wp_customize The instance of the WP_Customize_Manager class.
+ */
+function vip_maintenance_mode_register_customize( $wp_customize ) {
+	$wp_customize->add_section(
+		'vip_maintenance_mode_section',
+		array(
+			'priority' => 500,
+			'title'    => __( 'Maintenance Mode ', 'maintenance-mode' ),
+		)
+	);
+
+	$wp_customize->add_setting(
+		'vip_maintenance_mode_enable',
+		array(
+			'default'           => false,
+			'type'              => 'option',
+			'callback_function' => 'vip_maintenance_mode_sanitize_checkbox',
+		)
+	);
+
+	$wp_customize->add_control(
+		'vip_maintenance_mode_enable',
+		array(
+			'label'   => __( 'Enable Maintenance Mode', 'maintenance-mode' ),
+			'section' => 'vip_maintenance_mode_section',
+			'type'    => 'checkbox',
+		)
+	);
+}
+add_action( 'customize_register', 'vip_maintenance_mode_register_customize' );
+
+/**
+ * Sanitize customizer checkbox input
+ *
+ * @since 0.2.3
+ * @param bool $input The boolean to sanitize.
+ * @return bool The sanitized boolean.
+ */
+function vip_maintenance_mode_sanitize_checkbox( $input ) {
+	return isset( $input ) ? true : false;
 }
 
 /**
@@ -61,7 +159,7 @@ function current_user_can_bypass_vip_maintenance_mode() {
  * @since 0.1.1
  */
 function vip_maintenance_mode_template_redirect() {
-	if ( current_user_can_bypass_vip_maintenance_mode() ) {
+	if ( ! vip_maintenance_mode_is_activated() ) {
 		return;
 	}
 
@@ -106,7 +204,15 @@ function vip_maintenance_mode_template_redirect() {
 }
 add_action( 'template_redirect', 'vip_maintenance_mode_template_redirect' );
 
+/**
+ * Restrict REST API access
+ *
+ * @since 0.2.0
+ * @param  mixed $result The original REST API result.
+ * @return WP_Error|null|true WP_Error if authentication error, null if authentication method wasn't used, true if authentication succeeded.
+ */
 function vip_maintenance_mode_restrict_rest_api( $result ) {
+	
 	if ( ! empty( $result ) ) {
 		return $result;
 	}
@@ -136,55 +242,3 @@ function vip_maintenance_mode_restrict_rest_api( $result ) {
 	return $result;
 }
 add_action( 'rest_authentication_errors', 'vip_maintenance_mode_restrict_rest_api' );
-
-/**
- * Displays a notice in the admin bar to indicate that maintenance mode is enabled
- *
- * Only displayed to users who don't see the maintenance page.
- *
- * @since 0.1.1
- */
-function vip_maintenance_mode_admin_bar_menu() {
-	global $wp_admin_bar;
-
-	if ( ! current_user_can_bypass_vip_maintenance_mode() ) {
-		return;
-	}
-
-	$wp_admin_bar->add_menu( array(
-		'id'     => 'maintenance-mode',
-		'parent' => 'top-secondary',
-		'title'  => apply_filters( 'vip_maintenance_mode_admin_bar_title', __( 'Under maintenance', 'maintenance-mode' ) ),
-		'meta'   => array( 'class' => 'mm-notice' ),
-	) );
-}
-add_action( 'admin_bar_menu', 'vip_maintenance_mode_admin_bar_menu', 8 );
-
-/**
- * Styles the admin bar notice
- *
- * @since 0.1.1
- */
-function vip_maintenance_mode_admin_scripts() {
-	$styles = '#wpadminbar .mm-notice .ab-item {
-		background: #ffcc00 !important;
-		background: linear-gradient( #ffcc00, #e6b400 ) !important;
-		color: #23282d !important;
-		font-weight:500;
-	}';
-	wp_add_inline_style( 'admin-bar', $styles );
-}
-add_action( 'wp_enqueue_scripts', 'vip_maintenance_mode_admin_scripts' );
-add_action( 'admin_enqueue_scripts', 'vip_maintenance_mode_admin_scripts' );
-
-/**
- * Localize plugin
- *
- * @since 0.1.1
- * @uses load_plugin_textdomain
- * @return void
- */
-function vip_maintenance_mode_load_plugin_textdomain() {
-	load_plugin_textdomain( 'maintenance-mode', FALSE, basename( dirname( __FILE__ ) ) . '/languages/' );
-}
-add_action( 'init', 'vip_maintenance_mode_load_plugin_textdomain' );
