@@ -8,8 +8,8 @@ Shut down your site for a little while and do some maintenance on it!
 
 ## Installation
 
-1. Upload 'maintenance-mode' to the '/wp-content/plugins/' directory
-2. Activate the plugin through the 'Plugins' menu in WordPress
+1. Upload `maintenance-mode` to the `/wp-content/plugins/` directory
+2. Activate the plugin through the _Plugins_ menu in WordPress
 
 ## Usage
 
