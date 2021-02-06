@@ -159,6 +159,10 @@ function vip_maintenance_mode_sanitize_checkbox( $input ) {
  * @since 0.1.1
  */
 function vip_maintenance_mode_template_redirect() {
+	if ( is_customize_preview() ) {
+		return;
+	}
+
 	if ( ! vip_maintenance_mode_is_activated() ) {
 		return;
 	}
