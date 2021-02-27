@@ -3,9 +3,10 @@
  * Plugin Name: Maintenance Mode
  * Plugin URI: https://vip.wordpress.com/plugins/maintenance-mode/
  * Description: Shut down your site for a little while and do some maintenance on it!
+ * Version: 0.2.2
+ * Requires PHP: 7.4
  * Author: Automattic / WordPress.com VIP
  * Author URI: https://vip.wordpress.com
- * Version: 0.2.2
  * License: GPLv2
  * Text Domain: maintenance-mode
  * Domain Path: /languages
@@ -15,21 +16,12 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Localize plugin
+ * Add settings link on plugin page.
  *
- * @since 0.1.1
- */
-function vip_maintenance_mode_load_plugin_textdomain() {
-	load_plugin_textdomain( 'maintenance-mode', FALSE, basename( dirname( __FILE__ ) ) . '/languages/' );
-}
-add_action( 'plugins_loaded', 'vip_maintenance_mode_load_plugin_textdomain' );
-
-/**
- * Add settings link on plugin page
- *
- * @since 1.0.0
- * @param array $links The original array with customizer links.
- * @return array $links The updated array with customizer links.
+ * @since 0.2.2
+ * 
+ * @param array $links The original array with Customizer links.
+ * @return array The updated array with Customizer links.
  */
 function vip_maintenance_mode_settings_link( $links ) {
 	$admin_url     = admin_url( 'customize.php?autofocus[control]=vip_maintenance_mode_enable' );
@@ -41,9 +33,10 @@ function vip_maintenance_mode_settings_link( $links ) {
 add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'vip_maintenance_mode_settings_link' );
 
 /**
- * Checks to see if the maintenance mode is activated
+ * Checks to see if the maintenance mode is activated.
  * 
  * @since 0.2.3
+ * 
  * @return bool Return is maintenance mode is activated.
  */
 function vip_maintenance_mode_is_activated() {
@@ -51,9 +44,10 @@ function vip_maintenance_mode_is_activated() {
 }
 
 /**
- * Checks to see if the current user can bypass maintenance mode
+ * Checks to see if the current user can bypass maintenance mode.
  * 
  * @since 0.1.0
+ * 
  * @return bool Whether the current user has the given capability.
  */
 function current_user_can_bypass_vip_maintenance_mode() {
@@ -62,7 +56,7 @@ function current_user_can_bypass_vip_maintenance_mode() {
 }
 
 /**
- * Displays a notice in the admin bar to indicate that maintenance mode is enabled
+ * Displays a notice in the admin bar to indicate that maintenance mode is enabled.
  *
  * Only displayed to users who don't see the maintenance page.
  *
@@ -85,7 +79,7 @@ function vip_maintenance_mode_admin_bar_menu() {
 add_action( 'admin_bar_menu', 'vip_maintenance_mode_admin_bar_menu', 8 );
 
 /**
- * Styles the admin bar notice
+ * Show admin bar notice when the maintenance mode had been activated.
  *
  * @since 0.1.1
  */
@@ -101,17 +95,18 @@ add_action( 'wp_enqueue_scripts', 'vip_maintenance_mode_admin_scripts' );
 add_action( 'admin_enqueue_scripts', 'vip_maintenance_mode_admin_scripts' );
 
 /**
- * Enhance customizer
+ * Enhance customizer.
  *
  * @since 0.2.3
+ * 
  * @param WP_Customize_Manager $wp_customize The instance of the WP_Customize_Manager class.
  */
-function vip_maintenance_mode_register_customize( $wp_customize ) {
+function vip_maintenance_mode_register_customize( WP_Customize_Manager $wp_customize ) {
 	$wp_customize->add_section(
 		'vip_maintenance_mode_section',
 		array(
 			'priority' => 500,
-			'title'    => __( 'Maintenance Mode ', 'maintenance-mode' ),
+			'title'    => __( 'Maintenance Mode', 'maintenance-mode' ),
 		)
 	);
 
@@ -120,7 +115,7 @@ function vip_maintenance_mode_register_customize( $wp_customize ) {
 		array(
 			'default'           => false,
 			'type'              => 'option',
-			'callback_function' => 'vip_maintenance_mode_sanitize_checkbox',
+			'sanitize_callback' => 'vip_maintenance_mode_sanitize_checkbox',
 		)
 	);
 
@@ -136,18 +131,19 @@ function vip_maintenance_mode_register_customize( $wp_customize ) {
 add_action( 'customize_register', 'vip_maintenance_mode_register_customize' );
 
 /**
- * Sanitize customizer checkbox input
+ * Sanitize customizer checkbox input.
  *
  * @since 0.2.3
+ * 
  * @param bool $input The boolean to sanitize.
  * @return bool The sanitized boolean.
  */
 function vip_maintenance_mode_sanitize_checkbox( $input ) {
-	return isset( $input ) ? true : false;
+	return ( bool ) $input;
 }
 
 /**
- * Redirects visitors and users without edit_posts capability to the maintenance page
+ * Redirects visitors and users without edit_posts capability to the maintenance page.
  *
  * Uses the plugin template when there's no template called `template-maintenance-mode.php` in the theme root folder.
  *
@@ -203,13 +199,6 @@ function vip_maintenance_mode_template_redirect() {
 }
 add_action( 'template_redirect', 'vip_maintenance_mode_template_redirect' );
 
-/**
- * Restrict REST API access
- *
- * @since 0.2.0
- * @param  mixed $result The original REST API result.
- * @return WP_Error|null|true WP_Error if authentication error, null if authentication method wasn't used, true if authentication succeeded.
- */
 function vip_maintenance_mode_restrict_rest_api( $result ) {
 	
 	if ( ! empty( $result ) ) {
@@ -241,3 +230,13 @@ function vip_maintenance_mode_restrict_rest_api( $result ) {
 	return $result;
 }
 add_action( 'rest_authentication_errors', 'vip_maintenance_mode_restrict_rest_api' );
+
+/**
+ * Localize plugin.
+ *
+ * @since 0.1.1
+ */
+function vip_maintenance_mode_load_plugin_textdomain() {
+	load_plugin_textdomain( 'maintenance-mode', FALSE, basename( dirname( __FILE__ ) ) . '/languages/' );
+}
+add_action( 'plugins_loaded', 'vip_maintenance_mode_load_plugin_textdomain' );

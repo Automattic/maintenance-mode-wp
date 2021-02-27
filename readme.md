@@ -1,15 +1,24 @@
 # Maintenance Mode
 
 [![Build Status](https://api.travis-ci.com/Automattic/maintenance-mode.svg?branch=master)](https://api.travis-ci.com/Automattic/maintenance-mode)
-[![GPLv2 License](https://img.shields.io/github/license/Automattic/maintenance-mode.svg)](https://www.gnu.org/licenses/gpl.html)
+[![GPLv2 License](https://img.shields.io/github/license/Automattic/maintenance-mode.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
 [![Tag Version](https://img.shields.io/github/tag/Automattic/maintenance-mode.svg)](https://wordpress.org/plugins/maintenance-mode/)
+
+Contributors: wpcomvip, automattic, benoitchantre, emrikol, philipjohn, nielslange
+Tags: maintenance-mode maintenance
+Requires at least: 4.6
+Tested up to: 5.6
+Stable tag: 0.2.2
+License: GPLv2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 Shut down your site for a little while and do some maintenance on it!
 
 ## Installation
 
 1. Install `maintenance-mode` in the `/wp-content/plugins/` directory
-2. Activate the plugin through the _Plugins_ menu in WordPress
+1. Activate the plugin through the _Plugins_ menu in WordPress
+1. Set the `VIP_MAINTENANCE_MODE` constant to true or activate teh maintenance mode via Customizer.
 
 ## Usage
 
@@ -19,10 +28,6 @@ Shut down your site for a little while and do some maintenance on it!
 - Add the `VIP_MAINTENANCE_MODE` constant to your theme and set to `true` or activate the maintenance mode via customizer
 
 ## Changelog
-
-### 0.3.0
-
-* Allow activation of maintenance mode via customizer ([#37](https://github.com/Automattic/maintenance-mode-wp/issues/37))
 
 ### 0.2.2
 
