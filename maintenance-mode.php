@@ -3,26 +3,21 @@
  * Plugin Name: Maintenance Mode
  * Plugin URI: https://vip.wordpress.com/plugins/maintenance-mode/
  * Description: Shut down your site for a little while and do some maintenance on it!
- * Author: Automattic / WordPress VIP
+ * Author: Automattic / WordPress.com VIP
  * Author URI: https://vip.wordpress.com
- * Version: 0.3.0
+ * Version: 0.2.2
  * License: GPLv2
  * Text Domain: maintenance-mode
  * Domain Path: /languages
  */
 
-/**
- * Avoid direct plugin access
- *
- * @since 0.2.3
- */
+// Avoid direct plugin access.
 defined( 'ABSPATH' ) || exit;
 
 /**
  * Localize plugin
  *
  * @since 0.1.1
- * @uses load_plugin_textdomain
  */
 function vip_maintenance_mode_load_plugin_textdomain() {
 	load_plugin_textdomain( 'maintenance-mode', FALSE, basename( dirname( __FILE__ ) ) . '/languages/' );
