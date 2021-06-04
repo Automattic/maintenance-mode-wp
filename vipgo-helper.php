@@ -9,7 +9,10 @@
  *
  * @return bool Should Maintenance Mode set a 503 header
  */
+
+// phpcs:ignore Generic.PHP.Syntax.PHPSyntax -- return type declaration invalid on php<7, VIP Go is 7+
 function wpcom_vip_maintenance_mode_do_not_respond_503_for_services( $should_set_503 ): bool {
+	// phpcs:ignore WordPressVIPMinimum.Variables.RestrictedVariables.cache_constraints___SERVER__HTTP_USER_AGENT__
 	$user_agent = ! empty( $_SERVER['HTTP_USER_AGENT'] ) ? $_SERVER['HTTP_USER_AGENT'] : '';
 
 	// The request comes from Nagios so deny the 503 header being set.
