@@ -9,7 +9,7 @@ Usage:
  - Add a template to your theme's root folder called `template-maintenance-mode.php`.
  - This should be a simple HTML page that should include the message you want to show your visitors.
  - Note: the template should include `wp_head()` and `wp_footer()` calls.
- - Add the VIP_MAINTENANCE_MODE constant to your theme and set to `true`.
+ - Add the `VIP_MAINTENANCE_MODE` constant to your theme and set to `true`.
 
 ## Installation
 
@@ -19,17 +19,17 @@ Usage:
 
 ## Default template screenshots
 
-twentytwentyone:  
-![twentytwentyone](screenshot-twentytwentyone.png)
+On Twenty Twenty-One:  
+![Screenshot of active Maintenance mode on Twenty Twenty-One](screenshot-twentytwentyone.png)
 
-twentytwenty:  
-![twentytwenty](screenshot-twentytwenty.png)
+On Twenty Twenty:  
+![Screenshot of active Maintenance mode on Twenty Twenty](screenshot-twentytwenty.png)
 
-twentynineteen:  
-![twentynineteen](screenshot-twentynineteen.png)
+On Twenty Nineteen:  
+![Screenshot of active Maintenance mode on Twenty Nineteen](screenshot-twentynineteen.png)
 
-twentyseventeen:  
-![twentyseventeen](screenshot-twentyseventeen.png)
+On Twenty Seventeen:  
+![Screenshot of active Maintenance mode on Twenty Seventeen](screenshot-twentyseventeen.png)
 
 ## Changelog
 
