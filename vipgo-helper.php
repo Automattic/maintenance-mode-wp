@@ -1,4 +1,12 @@
 <?php
+/**
+ * VIP Go Helper
+ *
+ * @package VIP_Maintenance_Mode
+ *
+ * @phpcs:disable PHPCompatibility.FunctionDeclarations.NewReturnTypeDeclarations.boolFound -- return type declaration invalid on php<7, VIP Go is 7+
+ * @phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedFunctionFound -- legacy
+ */
 
 /**
  * Prevent the Maintenance Mode plugin returning a 503 HTTP status to Nagios and Jetpack.
@@ -7,18 +15,15 @@
  * reporting lots of server errors and Jetpack not being able to verify connection status for sites that are just in maintenance_mode. This function sets the filter
  * response that Maintenance Mode uses to determine if it should set the 503 status header or not.
  *
+ * @param bool $should_set_503 Whether to respond with a 503 status code. Default true.
  * @return bool Should Maintenance Mode set a 503 header
  */
-
-// phpcs:ignore Generic.PHP.Syntax.PHPSyntax -- return type declaration invalid on php<7, VIP Go is 7+
 function wpcom_vip_maintenance_mode_do_not_respond_503_for_services( $should_set_503 ): bool {
-	// phpcs:ignore WordPressVIPMinimum.Variables.RestrictedVariables.cache_constraints___SERVER__HTTP_USER_AGENT__
-	$user_agent = ! empty( $_SERVER['HTTP_USER_AGENT'] ) ? $_SERVER['HTTP_USER_AGENT'] : '';
-
+	$user_agent = filter_input( INPUT_SERVER, 'HTTP_USER_AGENT', FILTER_SANITIZE_STRING );
 	// The request comes from Nagios so deny the 503 header being set.
 	// Desktop checks use something like `check_http/v2.2.1 (nagios-plugins 2.2.1)`.
 	// Mobile checks use `iphone`.
-	// Utilize helper function vip_is_jetpack_request if available
+	// Utilize helper function vip_is_jetpack_request if available.
 	if ( false !== strpos( $user_agent, 'check_http' ) || 'iphone' === $user_agent || ( function_exists( 'vip_is_jetpack_request' ) && vip_is_jetpack_request() ) ) {
 		return false;
 	}
