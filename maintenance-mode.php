@@ -14,31 +14,7 @@
  * - Add a template to your theme's root folder called `template-maintenance-mode.php`.
  * - This should be a simple HTML page that should include the message you want to show your visitors.
  * - Note: the template should include `wp_head()` and `wp_footer()` calls.
- * - Add the VIP_MAINTENANCE_MODE constant to your theme and set to `true`.
  */
-
-// Stops the execution early if the VIP_MAINTENANCE_MODE constant is not set to `true`.
-if ( !defined( 'VIP_MAINTENANCE_MODE' ) || true !== VIP_MAINTENANCE_MODE ) {
-	add_action( 'admin_notices', 'vip_maintenance_mode_admin_notice__constant_not_set' );
-	return;
-}
-
-/**
- * Displays a warning in the admin to inform users about the VIP_MAINTENANCE_MODE constant
- *
- * Only users who can activate plugins will see the warning.
- *
- * @since 0.1.1
- */
-function vip_maintenance_mode_admin_notice__constant_not_set() {
-	if ( !current_user_can( 'activate_plugins' ) ) {
-		return;
-	}
-
-	$class = 'notice notice-warning';
-	$message = __( 'Maintenance Mode won\'t work until you set the VIP_MAINTENANCE_MODE constant to <code>true</code>.', 'maintenance-mode' );
-	printf( '<div class="%1$s"><p>%2$s</p></div>', esc_attr( $class ), wp_kses( $message, array( 'code' => array() ) ) );
-}
 
 /**
  * Checks to see if the current user can bypass maintenance mode
@@ -96,7 +72,7 @@ function vip_maintenance_mode_template_redirect() {
 	}
 
 	header( 'X-Maintenance-Mode-WP: true' );
-	
+
 	if ( locate_template( 'template-maintenance-mode.php' ) ) {
 		get_template_part( 'template-maintenance-mode' );
 	} else {
