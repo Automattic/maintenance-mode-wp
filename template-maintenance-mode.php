@@ -1,8 +1,15 @@
+<?php
+/**
+ * Default maintenance template
+ *
+ * @package VIP_Maintenance_Mode
+ */
+?>
 <!doctype html>
 <html <?php language_attributes(); ?>>
 <head>
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
-	<?php wp_head(); // allow for remote-login on mapped domains ?>
+	<?php wp_head(); // allow for remote-login on mapped domains. ?>
 	<style>
 	.mm-wrapper {
 		display: flex;
