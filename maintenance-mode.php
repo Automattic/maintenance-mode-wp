@@ -53,18 +53,13 @@ function current_user_can_bypass_vip_maintenance_mode() {
 	return current_user_can( $required_capability );
 }
 
-/**
- * Redirects visitors and users without edit_posts capability to the maintenance page
- *
- * Uses the plugin template when there's no template called `template-maintenance-mode.php` in the theme root folder.
- *
- * @since 0.1.1
- */
-function vip_maintenance_mode_template_redirect() {
+
+add_action( 'send_headers', 'vip_maintenance_mode_send_headers', PHP_INT_MAX );
+
+function vip_maintenance_mode_send_headers() {
 	if ( current_user_can_bypass_vip_maintenance_mode() ) {
 		return;
 	}
-
 	/**
 	 * Filters whether to respond with a 503 status code.
 	 *
@@ -74,11 +69,11 @@ function vip_maintenance_mode_template_redirect() {
 	 *
 	 * @param bool $bool Whether to respond with a 503 status code. Default true.
 	 */
-	$respond_503 = apply_filters( 'vip_maintenance_mode_respond_503', true );
+	$respond_with_status_code = apply_filters( 'vip_maintenance_mode_respond_503', true );
+	$respond_origin_status_code = apply_filters( 'vip_maintenance_mode_origin_status_code', 503 );
 
-	if ( true === $respond_503 ) {
-		status_header( 503 );
-
+	if ( true === $respond_with_status_code ) {
+		status_header( $respond_origin_status_code );
 		/**
 		 * Filters the Retry-After value used to indicate how long the service is expected to be unavailable.
 		 *
@@ -96,7 +91,20 @@ function vip_maintenance_mode_template_redirect() {
 	}
 
 	header( 'X-Maintenance-Mode-WP: true' );
-	
+}
+
+/**
+ * Redirects visitors and users without edit_posts capability to the maintenance page
+ *
+ * Uses the plugin template when there's no template called `template-maintenance-mode.php` in the theme root folder.
+ *
+ * @since 0.1.1
+ */
+function vip_maintenance_mode_template_redirect() {
+	if ( current_user_can_bypass_vip_maintenance_mode() ) {
+		return;
+	}
+
 	if ( locate_template( 'template-maintenance-mode.php' ) ) {
 		get_template_part( 'template-maintenance-mode' );
 	} else {
