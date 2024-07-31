@@ -27,4 +27,4 @@ function wpcom_vip_maintenance_mode_do_not_respond_503_for_services( $should_set
 }
 
 add_filter( 'vip_maintenance_mode_respond_503', 'wpcom_vip_maintenance_mode_do_not_respond_503_for_services', 30 );
-add_filter( 'vip_maintenance_mode_origin_status_code', fn() => 418 );
+add_filter( 'vip_maintenance_mode_origin_status_code', fn() => 566 );
