@@ -53,7 +53,6 @@ function current_user_can_bypass_vip_maintenance_mode() {
 	return current_user_can( $required_capability );
 }
 
-
 add_action( 'send_headers', 'vip_maintenance_mode_send_headers', PHP_INT_MAX );
 
 function vip_maintenance_mode_send_headers() {
@@ -73,7 +72,7 @@ function vip_maintenance_mode_send_headers() {
 	$respond_origin_status_code = apply_filters( 'vip_maintenance_mode_origin_status_code', 503 );
 
 	if ( true === $respond_with_status_code ) {
-		status_header( $respond_origin_status_code );
+		status_header( $respond_origin_status_code, 'Service Unavailable' );
 		/**
 		 * Filters the Retry-After value used to indicate how long the service is expected to be unavailable.
 		 *
@@ -104,7 +103,6 @@ function vip_maintenance_mode_template_redirect() {
 	if ( current_user_can_bypass_vip_maintenance_mode() ) {
 		return;
 	}
-
 	if ( locate_template( 'template-maintenance-mode.php' ) ) {
 		get_template_part( 'template-maintenance-mode' );
 	} else {
