@@ -57,5 +57,11 @@
 	"support": {
 		"issues": "https://github.com/Automattic/maintenance-mode-wp/issues",
 		"source": "https://github.com/Automattic/maintenance-mode-wp"
+	},
+	"config": {
+		"allow-plugins": {
+			"composer/installers": true,
+			"dealerdirect/phpcodesniffer-composer-installer": true
+		}
 	}
 }
