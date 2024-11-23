@@ -1,8 +1,16 @@
+<?php
+/**
+ * Full HTML Template output.
+ * 
+ * @package Automattic\MaintenanceMode
+ */
+
+?>
 <!doctype html>
 <html <?php language_attributes(); ?>>
 <head>
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
-	<?php wp_head(); // allow for remote-login on mapped domains ?>
+	<?php wp_head(); // Allow for remote-login on mapped domains. ?>
 	<style>
 	.mm-wrapper {
 		display: flex;

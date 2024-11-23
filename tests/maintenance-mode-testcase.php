@@ -1,4 +1,7 @@
 <?php
+/**
+ * Basic testcase
+ */
 
 /**
  * Base unit test class for Maintenance Mode
