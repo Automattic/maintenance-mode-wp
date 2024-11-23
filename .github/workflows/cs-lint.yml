@@ -18,11 +18,18 @@ jobs:
     env:
       XMLLINT_INDENT: "	"
 
+    strategy:
+      matrix:
+        php: ['7.4', 'latest', '8.5']
+      fail-fast: false
+
+    continue-on-error: ${{ matrix.php == '8.5' }}
+
     steps:
-      - name: Setup PHP
+      - name: Setup PHP ${{ matrix.php }}
         uses: shivammathur/setup-php@v2
         with:
-          php-version: "7.4"
+          php-version: ${{ matrix.php }}
           coverage: none
           tools: cs2pr
 
@@ -37,7 +44,7 @@ jobs:
         uses: korelstar/xmllint-problem-matcher@v1
 
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       # Validate the composer.json file.
       # @link https://getcomposer.org/doc/03-cli.md#validate
@@ -47,7 +54,7 @@ jobs:
       # Install dependencies and handle caching in one go.
       # @link https://github.com/marketplace/actions/install-composer-dependencies
       - name: Install Composer dependencies
-        uses: ramsey/composer-install@v1
+        uses: ramsey/composer-install@v3
 
       # Lint PHP.
       - name: Lint PHP against parse errors
