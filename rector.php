@@ -1,11 +1,13 @@
 <?php
 /**
  * Rector config.
+ * 
+ * @package Automattic/MaintenanceMode
  */
+
 declare(strict_types=1);
 
 use Rector\CodeQuality\Rector\ClassMethod\OptionalParametersAfterRequiredRector;
-use Rector\CodingStyle\Rector\ClassMethod\MakeInheritedMethodVisibilitySameAsParentRector;
 use Rector\CodingStyle\Rector\FuncCall\ConsistentImplodeRector;
 use Rector\Config\RectorConfig;
 use Rector\DeadCode\Rector\StaticCall\RemoveParentCallWithoutParentRector;
@@ -17,7 +19,6 @@ use Rector\Php81\Rector\FuncCall\NullToStrictStringFuncCallArgRector;
 use Rector\Php82\Rector\Encapsed\VariableInStringInterpolationFixerRector;
 use Rector\Php83\Rector\ClassMethod\AddOverrideAttributeToOverriddenMethodsRector;
 use Rector\Php84\Rector\Param\ExplicitNullableParamTypeRector;
-use Rector\Strict\Rector\Empty_\DisallowedEmptyRuleFixerRector;
 
 return RectorConfig::configure()
 	->withPaths(
@@ -30,16 +31,12 @@ return RectorConfig::configure()
 	)
 	->withSkip(
 		array(
-            // WordPress prefers long array syntax.
+			// WordPress prefers long array syntax.
 			LongArrayToShortArrayRector::class,
-			// Child classes can legitimately relax the visibility of a method, so while this
-			// might not be desirable, changing them from public to the original parent-defined
-			// protected would count as a breaking change.
-			MakeInheritedMethodVisibilitySameAsParentRector::class,
 		)
 	)
 	->withPhpSets( php74: true )
-	// Changes from later PHP Sets that are backwards compatible:
+	// Changes from later PHP Sets that are backwards compatible.
 	->withRules(
 		array(
 			// 8.0
@@ -63,6 +60,6 @@ return RectorConfig::configure()
 			// 8.4
 			ExplicitNullableParamTypeRector::class,
 		)
-    )
-	->withPreparedSets( deadCode: true, codeQuality: true, /*instanceOf: true, codingStyle: true*/ )
+	)
+	->withPreparedSets( deadCode: true, codeQuality: true, instanceOf: true, codingStyle: true )
 	->withTypeCoverageLevel( 1 );

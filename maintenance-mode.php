@@ -40,7 +40,7 @@ function vip_maintenance_mode_admin_notice__constant_not_set(): void {
 	}
 
 	$class   = 'notice notice-warning';
-	$message = __( 'Maintenance Mode won\'t work until you set the VIP_MAINTENANCE_MODE constant to <code>true</code>.', 'maintenance-mode' );
+	$message = __( "Maintenance Mode won't work until you set the VIP_MAINTENANCE_MODE constant to <code>true</code>.", 'maintenance-mode' );
 	printf( '<div class="%1$s"><p>%2$s</p></div>', esc_attr( $class ), wp_kses( $message, array( 'code' => array() ) ) );
 }
 
@@ -101,12 +101,13 @@ function vip_maintenance_mode_template_redirect(): void {
 	}
 
 	header( 'X-Maintenance-Mode-WP: true' );
-	
+
 	if ( locate_template( 'template-maintenance-mode.php' ) ) {
 		get_template_part( 'template-maintenance-mode' );
 	} else {
 		include __DIR__ . '/template-maintenance-mode.php';
 	}
+
 	exit;
 }
 
