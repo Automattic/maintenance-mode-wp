@@ -34,7 +34,7 @@ if ( ! defined( 'VIP_MAINTENANCE_MODE' ) || true !== VIP_MAINTENANCE_MODE ) {
  *
  * @since 0.1.1
  */
-function vip_maintenance_mode_admin_notice__constant_not_set() {
+function vip_maintenance_mode_admin_notice__constant_not_set(): void {
 	if ( ! current_user_can( 'activate_plugins' ) ) {
 		return;
 	}
@@ -65,7 +65,7 @@ add_action( 'template_redirect', 'vip_maintenance_mode_template_redirect' );
  *
  * @since 0.1.1
  */
-function vip_maintenance_mode_template_redirect() {
+function vip_maintenance_mode_template_redirect(): void {
 	if ( vip_maintenance_mode_current_user_can_bypass() ) {
 		return;
 	}
@@ -157,7 +157,7 @@ add_action( 'admin_bar_menu', 'vip_maintenance_mode_admin_bar_menu', 8 );
  *
  * @since 0.1.1
  */
-function vip_maintenance_mode_admin_bar_menu() {
+function vip_maintenance_mode_admin_bar_menu(): void {
 	global $wp_admin_bar;
 
 	if ( ! vip_maintenance_mode_current_user_can_bypass() ) {
@@ -181,7 +181,7 @@ add_action( 'admin_enqueue_scripts', 'vip_maintenance_mode_admin_scripts' );
  *
  * @since 0.1.1
  */
-function vip_maintenance_mode_admin_scripts() {
+function vip_maintenance_mode_admin_scripts(): void {
 	$styles = '#wpadminbar .mm-notice .ab-item {
 		background: #ffcc00 !important;
 		background: linear-gradient( #ffcc00, #e6b400 ) !important;
@@ -199,6 +199,6 @@ add_action( 'init', 'vip_maintenance_mode_load_plugin_textdomain' );
  * @uses load_plugin_textdomain
  * @return void
  */
-function vip_maintenance_mode_load_plugin_textdomain() {
+function vip_maintenance_mode_load_plugin_textdomain(): void {
 	load_plugin_textdomain( 'maintenance-mode', false, basename( __DIR__ ) . '/languages/' );
 }
