@@ -54,28 +54,28 @@ You can also choose to enable the REST API only in more narrow use-cases:
 ## Default template screenshots
 
 On Twenty Twenty-Five:  
-![Screenshot of active Maintenance mode on Twenty Twenty-Five](screenshot-twentytwentyfive.png)
+![Screenshot of active Maintenance mode on Twenty Twenty-Five](.wordpress-org/screenshot-8.png)
 
 On Twenty Twenty-Four:  
-![Screenshot of active Maintenance mode on Twenty Twenty-Four](screenshot-twentytwentyfour.png)
+![Screenshot of active Maintenance mode on Twenty Twenty-Four](.wordpress-org/screenshot-7.png)
 
 On Twenty Twenty-Three:  
-![Screenshot of active Maintenance mode on Twenty Twenty-Three](screenshot-twentytwentythree.png)
+![Screenshot of active Maintenance mode on Twenty Twenty-Three](.wordpress-org/screenshot-6.png)
 
 On Twenty Twenty-Two:  
-![Screenshot of active Maintenance mode on Twenty Twenty-Two](screenshot-twentytwentytwo.png)
+![Screenshot of active Maintenance mode on Twenty Twenty-Two](.wordpress-org/screenshot-5.png)
 
 On Twenty Twenty-One:  
-![Screenshot of active Maintenance mode on Twenty Twenty-One](screenshot-twentytwentyone.png)
+![Screenshot of active Maintenance mode on Twenty Twenty-One](.wordpress-org/screenshot-4.png)
 
 On Twenty Twenty:  
-![Screenshot of active Maintenance mode on Twenty Twenty](screenshot-twentytwenty.png)
+![Screenshot of active Maintenance mode on Twenty Twenty](.wordpress-org/screenshot-3.png)
 
 On Twenty Nineteen:  
-![Screenshot of active Maintenance mode on Twenty Nineteen](screenshot-twentynineteen.png)
+![Screenshot of active Maintenance mode on Twenty Nineteen](.wordpress-org/screenshot-2.png)
 
 On Twenty Seventeen:  
-![Screenshot of active Maintenance mode on Twenty Seventeen](screenshot-twentyseventeen.png)
+![Screenshot of active Maintenance mode on Twenty Seventeen](.wordpress-org/screenshot-1.png)
 
 ## Changelog
 
