@@ -197,7 +197,6 @@ add_action( 'init', 'vip_maintenance_mode_load_plugin_textdomain' );
  *
  * @since 0.1.1
  * @uses load_plugin_textdomain
- * @return void
  */
 function vip_maintenance_mode_load_plugin_textdomain(): void {
 	load_plugin_textdomain( 'maintenance-mode', false, basename( __DIR__ ) . '/languages/' );
