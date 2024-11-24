@@ -103,9 +103,7 @@ function vip_maintenance_mode_template_redirect(): void {
 
 	header( 'X-Maintenance-Mode-WP: true' );
 
-	if ( locate_template( 'template-maintenance-mode.php' ) ) {
-		get_template_part( 'template-maintenance-mode' );
-	} else {
+	if ( ! get_template_part( 'template-maintenance-mode' ) ) {
 		include __DIR__ . '/template-maintenance-mode.php';
 	}
 
