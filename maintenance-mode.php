@@ -54,6 +54,7 @@ function vip_maintenance_mode_current_user_can_bypass() {
 	 * @since 0.1.0
 	 */
 	$required_capability = apply_filters( 'vip_maintenance_mode_required_cap', 'edit_posts' );
+	// phpcs:ignore WordPress.WP.Capabilities.Undetermined
 	return current_user_can( $required_capability );
 }
 
