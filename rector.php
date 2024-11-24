@@ -19,8 +19,11 @@ use Rector\Php81\Rector\FuncCall\NullToStrictStringFuncCallArgRector;
 use Rector\Php82\Rector\Encapsed\VariableInStringInterpolationFixerRector;
 use Rector\Php83\Rector\ClassMethod\AddOverrideAttributeToOverriddenMethodsRector;
 use Rector\Php84\Rector\Param\ExplicitNullableParamTypeRector;
+use Rector\Set\ValueObject\LevelSetList;
+use Rector\Set\ValueObject\SetList;
 
 return RectorConfig::configure()
+	->withIndent( "\t", 1 )
 	->withPaths(
 		array(
 			__DIR__ . '/tests',
@@ -35,7 +38,18 @@ return RectorConfig::configure()
 			LongArrayToShortArrayRector::class,
 		)
 	)
-	->withPhpSets( php74: true )
+	->withSets(
+		array(
+			LevelSetList::UP_TO_PHP_74,
+			SetList::DEAD_CODE,
+			SetList::CODE_QUALITY,
+			SetList::INSTANCEOF,
+			SetList::CODING_STYLE,
+			SetList::EARLY_RETURN,
+			SetList::NAMING,
+			SetList::STRICT_BOOLEANS,
+		)
+	)
 	// Changes from later PHP Sets that are backwards compatible.
 	->withRules(
 		array(
@@ -61,5 +75,4 @@ return RectorConfig::configure()
 			ExplicitNullableParamTypeRector::class,
 		)
 	)
-	->withPreparedSets( deadCode: true, codeQuality: true, instanceOf: true, codingStyle: true )
 	->withTypeCoverageLevel( 1 );
