@@ -103,9 +103,24 @@ function vip_maintenance_mode_template_redirect(): void {
 
 	header( 'X-Maintenance-Mode-WP: true' );
 
-	if ( locate_template( 'template-maintenance-mode.php' ) ) {
-		get_template_part( 'template-maintenance-mode' );
-	} else {
+	// Set default arguments for get_template_part().
+	$defaults = array(
+		'slug' => 'template-maintenance-mode',
+		'name' => '',
+		'args' => array(),
+	);
+
+	/**
+	 * Filters the default arguments for the maintenance mode template.
+	 *
+	 * @since 0.3.0
+	 *
+	 * @param array $defaults The default arguments for the template part.
+	 * @return array Modified arguments for the template part.
+	 */
+	$defaults = apply_filters( 'vip_maintenance_mode_template_args', $defaults );
+
+	if ( ! get_template_part( $defaults['slug'], $defaults['name'], $defaults['args'] ) ) {
 		include __DIR__ . '/template-maintenance-mode.php';
 	}
 
