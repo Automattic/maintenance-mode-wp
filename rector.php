@@ -38,32 +38,31 @@ return RectorConfig::configure()
 			MakeInheritedMethodVisibilitySameAsParentRector::class,
 		)
 	)
-	->withPhpSets( php56: true );
+	->withPhpSets( php74: true )
 	// Changes from later PHP Sets that are backwards compatible:
-	// ->withRules(
-	// 	array(
-	// 		// 8.0
-	// 		ConsistentImplodeRector::class,
-	// 		OptionalParametersAfterRequiredRector::class,
-	// 		RemoveParentCallWithoutParentRector::class,
-	// 		// Backfilled from PHP 8.0 into WP 5.9, so these can be used.
-	// 		StrContainsRector::class,
-	// 		StrEndsWithRector::class,
-	// 		StrStartsWithRector::class,
+	->withRules(
+		array(
+			// 8.0
+			ConsistentImplodeRector::class,
+			OptionalParametersAfterRequiredRector::class,
+			RemoveParentCallWithoutParentRector::class,
+			// Backfilled from PHP 8.0 into WP 5.9, so these can be used.
+			StrContainsRector::class,
+			StrEndsWithRector::class,
+			StrStartsWithRector::class,
 
-	// 		// 8.1
-	// 		NullToStrictStringFuncCallArgRector::class,
+			// 8.1
+			NullToStrictStringFuncCallArgRector::class,
 
-	// 		// 8.2
-	// 		VariableInStringInterpolationFixerRector::class,
+			// 8.2
+			VariableInStringInterpolationFixerRector::class,
 
-	// 		// 8.3
-	// 		AddOverrideAttributeToOverriddenMethodsRector::class,
+			// 8.3
+			AddOverrideAttributeToOverriddenMethodsRector::class,
 
-	// 		// 8.4
-	// 		ExplicitNullableParamTypeRector::class,
-	// 	)
-	// )
+			// 8.4
+			ExplicitNullableParamTypeRector::class,
+		)
+    )
 	// ->withPreparedSets( deadCode: true, codeQuality: true, instanceOf: true, codingStyle: true )
-	// ->withTypeCoverageLevel( 1 );
-    
+	->withTypeCoverageLevel( 1 );
