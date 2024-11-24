@@ -53,6 +53,18 @@ You can also choose to enable the REST API only in more narrow use-cases:
 
 ## Default template screenshots
 
+On Twenty Twenty-Five:  
+![Screenshot of active Maintenance mode on Twenty Twenty-Five](screenshot-twentytwentyfive.png)
+
+On Twenty Twenty-Four:  
+![Screenshot of active Maintenance mode on Twenty Twenty-Four](screenshot-twentytwentyfour.png)
+
+On Twenty Twenty-Three:  
+![Screenshot of active Maintenance mode on Twenty Twenty-Three](screenshot-twentytwentythree.png)
+
+On Twenty Twenty-Two:  
+![Screenshot of active Maintenance mode on Twenty Twenty-Two](screenshot-twentytwentytwo.png)
+
 On Twenty Twenty-One:  
 ![Screenshot of active Maintenance mode on Twenty Twenty-One](screenshot-twentytwentyone.png)
 
