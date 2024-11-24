@@ -22,18 +22,3 @@ Usage:
 1. Install the plugin.
 1. Set the `VIP_MAINTENANCE_MODE` constant to true.
 1. Activate.
-
-== Changelog ==
-
-= 0.2.2 =
-* Stop returning a 503 to Jetpack requests to prevent broken connection verification
-
-= 0.2.1 =
-* Stop returning a 503 to Nagios on WPCom and VipGo to prevent alerting as a server error
-
-= 0.2.0 =
-* Return a 503 header while maintenance mode is active (props benoitchantre)
-* Add an admin bar notice when Maintenance Mode is on (props benoitchantre)
-
-= 0.1.0 =
-* Initial plugin
