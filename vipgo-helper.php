@@ -30,6 +30,9 @@ function vip_maintenance_mode_do_not_respond_503_for_services( $should_set_503 )
 		// Nagios mobile checks use `iphone`.
 		'iphone' === $user_agent ||
 
+		// UptimeRobot uses something like `UptimeRobot/2.0; http://www.uptimerobot.com/`.
+		false !== stripos( $user_agent, 'UptimeRobot' ) ||
+
 		// Utilize helper function vip_is_jetpack_request if available.
 		( function_exists( 'vip_is_jetpack_request' ) && vip_is_jetpack_request() )
 	) {
