@@ -20,8 +20,7 @@ add_filter( 'vip_maintenance_mode_respond_503', 'vip_maintenance_mode_do_not_res
  * @return bool Indiciate whether a Maintenance Mode sets a 503 header.
  */
 function vip_maintenance_mode_do_not_respond_503_for_services( $should_set_503 ): bool {
-	// phpcs:ignore WordPressVIPMinimum.Variables.RestrictedVariables.cache_constraints___SERVER__HTTP_USER_AGENT__, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-	$user_agent = empty( $_SERVER['HTTP_USER_AGENT'] ) ? '' : $_SERVER['HTTP_USER_AGENT'];
+	$user_agent = filter_input( INPUT_SERVER, 'HTTP_USER_AGENT', FILTER_SANITIZE_SPECIAL_CHARS );
 
 	if (
 		// Nagios desktop checks use something like `check_http/v2.2.1 (nagios-plugins 2.2.1)`.

@@ -9,7 +9,6 @@
 	<file>.</file>
 	<!-- Ignoring Files and Folders:
 		https://github.com/squizlabs/PHP_CodeSniffer/wiki/Advanced-Usage#ignoring-files-and-folders -->
-	<exclude-pattern>*/tests/*</exclude-pattern>
 	<exclude-pattern>/vendor/</exclude-pattern>
 
 	<!-- How to scan -->
