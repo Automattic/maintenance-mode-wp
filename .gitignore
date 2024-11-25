@@ -1,2 +1,7 @@
-composer.lock
-/vendor
+/,phpunit.cache/
+/node_modules/
+/vendor/
+/.phpcs.xml
+/composer.lock
+/phpcs.xml
+/phpunit.xml
