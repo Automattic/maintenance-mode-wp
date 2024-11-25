@@ -1,12 +1,18 @@
 # Maintenance Mode
 
+Stable tag: 0.2.2  
+Requires at least: 5.9  
+Tested up to: 6.7  
+License: GPLv2 or later  
+License URI: https://www.gnu.org/licenses/gpl-2.0.html  
+Tags: maintenance-mode, maintenance  
+Contributors: wpcomvip, automattic, benoitchantre, emrikol, philipjohn, GaryJ  
+
 Shut down your site for a little while and do some maintenance on it!
 
-## Installation and activation
+## Description
 
-1. Add the plugin to the `/plugins` directory of an application's GitHub repository.
-2. Define the `VIP_MAINTENANCE_MODE` constant as true in `vip-config/vip-config.php`.
-3. Activate the plugin in the WordPress Admin dashboard Plugins screen.
+Easily provide a holding maintenance page, including with a custom template, to site visitors. 
 
 ### Custom Template
 
@@ -38,38 +44,50 @@ This also allows the third array key to be used to pass in custom arguments to t
 
 Using filters and conditionals, you can customize the behavior of the Maintenance Mode plugin based on your needs. These options rely on the plugin being installed as described above.
 
-**Selectively Load Maintenance Mode**
+#### Selectively Load Maintenance Mode
 Configure Maintenance Mode to only display for a specific network site. Code similar to this example must be added to the `vip-config/vip-config.php` file:
 
-    $site_name = $_SERVER['SERVER_NAME'];
-    $lockdown = false;
+~~~php
+$site_name = $_SERVER['SERVER_NAME'];
+$lockdown = false;
 
-    if ( false !== strpos( $site_name, 'url-to-enable-maintentance-mode' ) ) {
-        // Set lockdown
-        $lockdown = true;
-    }
-    // Set maintenance plugin
-    define( 'VIP_MAINTENANCE_MODE', $lockdown );
+if ( false !== strpos( $site_name, 'url-to-enable-maintentance-mode' ) ) {
+	// Set lockdown
+	$lockdown = true;
+}
+// Set maintenance plugin
+define( 'VIP_MAINTENANCE_MODE', $lockdown );
+~~~
 
-**Enable WordPress REST API**
+#### Enable WordPress REST API
 Configure Maintenance Mode to keep the WordPress REST API enabled even though the rest of the site is not accessible. Note that this code should be added to a file located within the `client-mu-plugins` directory:
 
-    // Generally allow API access
-    add_filter( 'vip_maintenance_mode_restrict_rest_api', '__return_false' );
+~~~php
+// Generally allow API access
+add_filter( 'vip_maintenance_mode_restrict_rest_api', '__return_false' );
+~~~
 
 You can also choose to enable the REST API only in more narrow use-cases:
 
-    add_filter( 'vip_maintenance_mode_restrict_rest_api', 'x_mm_allow_api' );
+~~~php
+add_filter( 'vip_maintenance_mode_restrict_rest_api', 'x_mm_allow_api' );
 
-    function x_mm_allow_api( $default ) {
-    	if (my_check() ) { 
-                               return false;
-                 }
+function x_mm_allow_api( $default ) {
+	if ( my_check() ) { 
+		return false;
+	}
 
-    	return true;
-    }
+	return true;
+}
+~~~
 
-## Default template screenshots
+## Installation
+
+1. Add the plugin to the `/plugins` directory of an application's GitHub repository.
+2. Define the `VIP_MAINTENANCE_MODE` constant as true in `vip-config/vip-config.php`.
+3. Activate the plugin in the WordPress Admin dashboard Plugins screen.
+
+## Screenshots
 
 On Twenty Twenty-Five:  
 ![Screenshot of active Maintenance mode on Twenty Twenty-Five](.wordpress-org/screenshot-8.png)
