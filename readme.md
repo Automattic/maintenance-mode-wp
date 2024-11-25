@@ -16,6 +16,24 @@ To add a custom template and messaging:
  - This should be a simple HTML page that includes the message you want to show your visitors.
  - Note: the template should include `wp_head()` and `wp_footer()` calls.
 
+You can also use the `vip_maintenance_mode_template_args` filter to adjust the file name and location of the custom template within your theme. 
+
+For instance, if you want it to live at `wp-content/themes/my-theme/plugin-templates/maintenance-mode-alt.php`, then add code like:
+
+~~~php
+add_filter(
+	'vip_maintenance_mode_template_args',
+	function( $args ) {
+		$args['slug'] = 'plugin-templates/maintenance-mode';
+		$args['name'] = 'alt';
+
+		return $args;
+	}
+);
+~~~
+
+This also allows the third array key to be used to pass in custom arguments to the template.
+
 ### Additional Configurations
 
 Using filters and conditionals, you can customize the behavior of the Maintenance Mode plugin based on your needs. These options rely on the plugin being installed as described above.
