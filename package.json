@@ -1,0 +1,16 @@
+{
+	"name": "maintenance-mode-wp",
+	"version": "0.2.2",
+	"description": "Shut down your site for a little while and do some maintenance on it!",
+	"license": "GPL-2.0-or-later",
+	"private": true,
+	"repository": "automattic/maintenance-mode-wp",
+	"scripts": {
+		"bump:patch": "bump patch --commit 'Version %s.' package.json package-lock.json maintenance-mode.php README.md",
+		"bump:minor": "bump minor --commit 'Version %s.' package.json package-lock.json maintenance-mode.php README.md",
+		"bump:major": "bump major --commit 'Version %s.' package.json package-lock.json maintenance-mode.php README.md"
+	},
+    "devDependencies": {
+		"version-bump-prompt": "^6.1.0"
+	}
+}
