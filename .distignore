@@ -9,4 +9,5 @@
 /package.json
 /package-lock.json
 /phpunit.xml.dist
+/rector.php
 /tests
