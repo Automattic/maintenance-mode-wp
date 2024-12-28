@@ -17,7 +17,7 @@ add_filter( 'vip_maintenance_mode_respond_503', 'vip_maintenance_mode_do_not_res
  * This function sets the filter response that Maintenance Mode uses to determine if it should set the 503 status header or not.
  *
  * @param bool $should_set_503 Whether Maintenance Mode should set a 503 header.
- * @return bool Indiciate whether a Maintenance Mode sets a 503 header.
+ * @return bool Indicate whether a Maintenance Mode sets a 503 header.
  */
 function vip_maintenance_mode_do_not_respond_503_for_services( $should_set_503 ): bool {
 	$user_agent = filter_input( INPUT_SERVER, 'HTTP_USER_AGENT', FILTER_SANITIZE_SPECIAL_CHARS );
