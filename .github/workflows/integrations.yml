@@ -68,6 +68,11 @@ jobs:
       - name: Start MySQL Service
         run: sudo systemctl start mysql.service
 
+      - name: Install Subversion
+        run: |
+          sudo apt-get update
+          sudo apt-get install subversion
+
       - name: Prepare environment for integration tests
         run: composer prepare ${{ matrix.wordpress }}
 
