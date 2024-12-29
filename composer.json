@@ -19,6 +19,7 @@
 		"php-parallel-lint/php-parallel-lint": "^1.0",
 		"phpcompatibility/phpcompatibility-wp": "^2.1",
 		"phpunit/phpunit": "^9",
+		"rector/rector": "^1",
 		"wp-coding-standards/wpcs": "^3",
 		"yoast/phpunit-polyfills": "^1.1"
 	},
@@ -37,6 +38,9 @@
 		],
 		"prepare": [
 			"bash bin/install-wp-tests.sh wordpress_test root root localhost"
+		],
+		"rector": [
+			"@php ./vendor/bin/rector"
 		],
 		"test": [
 			"@php ./vendor/bin/phpunit --testsuite WP_Tests"
