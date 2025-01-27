@@ -120,7 +120,7 @@ function vip_maintenance_mode_template_redirect(): void {
 	 */
 	$defaults = apply_filters( 'vip_maintenance_mode_template_args', $defaults );
 
-	if ( ! get_template_part( $defaults['slug'], $defaults['name'], $defaults['args'] ) ) {
+	if ( false === get_template_part( $defaults['slug'], $defaults['name'], $defaults['args'] ) ) {
 		include __DIR__ . '/template-maintenance-mode.php';
 	}
 
