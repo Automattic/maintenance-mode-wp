@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.2] - 2025-01-27
+
+### Fixed
+* Don't load template twice by @cfaria in https://github.com/Automattic/maintenance-mode-wp/pull/70
+
+### Maintenance
+* Fix typos by @szepeviktor in https://github.com/Automattic/maintenance-mode-wp/pull/67
+* Add Rector and rector command by @GaryJones in https://github.com/Automattic/maintenance-mode-wp/pull/68
+* CI: Install subversion by @GaryJones in https://github.com/Automattic/maintenance-mode-wp/pull/69
+
 ## [0.3.1] - 2024-12-14
 
 ### Maintenance
@@ -93,6 +103,7 @@ Predominantly a maintenance release, though it does include a couple of added ch
 ## 0.1.0 - 2017-02-16
 - Initial release.
 
+[0.3.2]: https://github.com/automattic/maintenance-mode-wp/compare/0.3.1...0.3.2
 [0.3.1]: https://github.com/automattic/maintenance-mode-wp/compare/0.3.0...0.3.1
 [0.3.0]: https://github.com/automattic/maintenance-mode-wp/compare/0.2.2...0.3.0
 [0.2.2]: https://github.com/automattic/maintenance-mode-wp/compare/0.2.1...0.2.2
