@@ -1,6 +1,6 @@
 # Maintenance Mode
 
-Stable tag: 0.3.1  
+Stable tag: 0.3.2  
 Requires at least: 5.9  
 Tested up to: 6.7  
 License: GPLv2 or later  

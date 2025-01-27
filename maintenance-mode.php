@@ -11,7 +11,7 @@
  * Plugin Name:       Maintenance Mode
  * Plugin URI:        https://github.com/Automattic/maintenance-mode-wp
  * Description:       Shut down your site for a little while and do some maintenance on it!
- * Version:           0.3.1
+ * Version:           0.3.2
  * Requires at least: 5.9
  * Requires PHP:      7.4
  * Author:            WordPress VIP, Automattic
