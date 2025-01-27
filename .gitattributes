@@ -13,6 +13,7 @@
 /.phpcs.xml.dist  export-ignore
 /CHANGELOG.md     export-ignore
 /phpunit.xml.dist export-ignore
+/rector.php       export-ignore
 
 # Auto detect text files and perform LF normalization
 # https://pablorsk.medium.com/be-a-git-ninja-the-gitattributes-file-e58c07c9e915

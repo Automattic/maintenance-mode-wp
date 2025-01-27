@@ -11,7 +11,7 @@
  * Plugin Name:       Maintenance Mode
  * Plugin URI:        https://github.com/Automattic/maintenance-mode-wp
  * Description:       Shut down your site for a little while and do some maintenance on it!
- * Version:           0.3.1
+ * Version:           0.3.2
  * Requires at least: 5.9
  * Requires PHP:      7.4
  * Author:            WordPress VIP, Automattic
@@ -120,7 +120,7 @@ function vip_maintenance_mode_template_redirect(): void {
 	 */
 	$defaults = apply_filters( 'vip_maintenance_mode_template_args', $defaults );
 
-	if ( ! get_template_part( $defaults['slug'], $defaults['name'], $defaults['args'] ) ) {
+	if ( false === get_template_part( $defaults['slug'], $defaults['name'], $defaults['args'] ) ) {
 		include __DIR__ . '/template-maintenance-mode.php';
 	}
 
@@ -146,8 +146,8 @@ function vip_maintenance_mode_restrict_rest_api( $result ) {
 		return $result;
 	}
 
-	$error_message         = apply_filters( 'vip_maintenance_mode_rest_api_error_message', __( 'REST API access is currently restricted while this site is undergoing maintenance.', 'maintenance-mode' ) );
-	$maintenace_rest_error = new WP_Error(
+	$error_message          = apply_filters( 'vip_maintenance_mode_rest_api_error_message', __( 'REST API access is currently restricted while this site is undergoing maintenance.', 'maintenance-mode' ) );
+	$maintenance_rest_error = new WP_Error(
 		'vip_maintenance_mode_rest_error',
 		$error_message,
 		array(
@@ -156,11 +156,11 @@ function vip_maintenance_mode_restrict_rest_api( $result ) {
 	);
 
 	if ( ! is_user_logged_in() ) {
-		return $maintenace_rest_error;
+		return $maintenance_rest_error;
 	}
 
 	if ( ! vip_maintenance_mode_current_user_can_bypass() ) {
-		return $maintenace_rest_error;
+		return $maintenance_rest_error;
 	}
 
 	return $result;

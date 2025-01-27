@@ -1,6 +1,6 @@
 {
 	"name": "maintenance-mode-wp",
-	"version": "0.3.1",
+	"version": "0.3.2",
 	"description": "Shut down your site for a little while and do some maintenance on it!",
 	"license": "GPL-2.0-or-later",
 	"private": true,
