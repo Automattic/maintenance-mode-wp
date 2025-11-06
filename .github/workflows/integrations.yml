@@ -74,7 +74,7 @@ jobs:
           sudo apt-get install subversion
 
       - name: Prepare environment for integration tests
-        run: composer prepare ${{ matrix.wordpress }}
+        run: composer prepare-ci ${{ matrix.wordpress }}
 
       - name: Run integration tests (single site)
         run: composer test
