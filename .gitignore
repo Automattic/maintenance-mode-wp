@@ -1,4 +1,4 @@
-/,phpunit.cache/
+/.phpunit.cache/
 /node_modules/
 /vendor/
 /.phpcs.xml
