@@ -1,18 +1,28 @@
 name: Run PHPUnit
 
 on:
-  # Run on all pushes and on all pull requests.
-  # Prevent the "push" build from running when there are only irrelevant changes.
-  push:
-    paths-ignore:
-      - "**.md"
   pull_request:
-  # Allow manually triggering the workflow.
+    paths:
+      - '.github/workflows/integrations.yml'
+      - '**.php'
+      - 'phpunit.xml.dist'
+      - 'composer.json'
+  push:
+    branches:
+      - develop
+      - trunk
+    paths:
+      - '.github/workflows/integrations.yml'
+      - '**.php'
+      - 'phpunit.xml.dist'
+      - 'composer.json'
   workflow_dispatch:
+
+permissions:
+  contents: read
 
 # Cancels all previous workflow runs for the same branch that have not yet completed.
 concurrency:
-  # The concurrency group contains the workflow name and the branch name.
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
@@ -30,54 +40,43 @@ jobs:
           # Check lowest supported WP version, with the lowest supported PHP.
           - wordpress: '6.4'
             php: '7.4'
-            allowed_failure: false
           # Check latest WP with the highest supported PHP.
           - wordpress: 'latest'
             php: 'latest'
-            allowed_failure: false
-          # Check upcoming WP.
-          - wordpress: 'trunk'
-            php: 'latest'
-            allowed_failure: true
-          # Check upcoming PHP - only needed when a new version has been forked (typically Sep-Nov)
-#          - wordpress: 'trunk'
-#            php: 'nightly'
-#            allowed_failure: true
       fail-fast: false
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+        with:
+          persist-credentials: false
+
+      - name: Install wordpress environment
+        run: npm install -g @wordpress/env
 
       - name: Setup PHP ${{ matrix.php }}
-        uses: shivammathur/setup-php@v2
+        uses: shivammathur/setup-php@44454db4f0199b8b9685a5d763dc37cbf79108e1 # 2.36.0
         with:
           php-version: ${{ matrix.php }}
 
       - name: Install Composer dependencies
-        uses: ramsey/composer-install@v3
+        uses: ramsey/composer-install@3cf229dc2919194e9e36783941438d17239e8520 # 3.1.1
         with:
           composer-options: --ignore-platform-req=php+
 
       - name: Setup problem matchers for PHP
         run: echo "::add-matcher::${{ runner.tool_cache }}/php.json"
 
-      - name: Setup Problem Matchers for PHPUnit
+      - name: Setup problem matchers for PHPUnit
         run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
 
-      - name: Start MySQL Service
-        run: sudo systemctl start mysql.service
-
-      - name: Install Subversion
-        run: |
-          sudo apt-get update
-          sudo apt-get install subversion
-
-      - name: Prepare environment for integration tests
-        run: composer prepare-ci ${{ matrix.wordpress }}
+      - name: Setup wp-env
+        run: wp-env start
+        env:
+          WP_ENV_CORE: WordPress/WordPress#${{ matrix.wordpress == 'latest' && 'master' || matrix.wordpress }}
 
       - name: Run integration tests (single site)
-        run: composer test
-      
+        run: composer test:integration
+
       - name: Run integration tests (multisite)
-        run: composer test-ms
+        run: composer test:integration-ms
