@@ -15,8 +15,24 @@
 		 testdox="true"
 		 verbose="true">
 	<testsuites>
-		<testsuite name="WP_Tests">
-			<directory>./tests/</directory>
+		<testsuite name="integration">
+			<directory suffix="Test.php">./tests/Integration/</directory>
 		</testsuite>
 	</testsuites>
+
+	<coverage cacheDirectory=".phpunit.cache/code-coverage"
+			  processUncoveredFiles="true">
+		<include>
+			<directory suffix=".php">.</directory>
+		</include>
+		<exclude>
+			<directory>./vendor</directory>
+			<directory>./tests</directory>
+			<directory>./node_modules</directory>
+		</exclude>
+		<report>
+			<text outputFile="php://stdout"/>
+			<clover outputFile=".phpunit.cache/clover.xml"/>
+		</report>
+	</coverage>
 </phpunit>
