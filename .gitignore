@@ -1,7 +1,9 @@
 /.phpunit.cache/
 /node_modules/
 /vendor/
+
 /.phpcs.xml
+/.wp-env.override.json
 /composer.lock
 /phpcs.xml
 /phpunit.xml
