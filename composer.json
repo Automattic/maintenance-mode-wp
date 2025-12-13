@@ -54,6 +54,7 @@
 		"rector": [
 			"@php ./vendor/bin/rector"
 		],
+		"test:unit": "@php ./vendor/bin/phpunit --testsuite Unit",
 		"test:integration": "wp-env run tests-cli --env-cwd=wp-content/plugins/maintenance-mode-wp ./vendor/bin/phpunit --testsuite integration",
 		"test:integration-ms": "wp-env run tests-cli --env-cwd=wp-content/plugins/maintenance-mode-wp /bin/bash -c 'WP_MULTISITE=1 ./vendor/bin/phpunit --testsuite integration'"
 	},
@@ -66,6 +67,7 @@
 		"lint": "Run PHP linting",
 		"lint-ci": "Run PHP linting and send results to stdout",
 		"rector": "Run Rector",
+		"test:unit": "Run unit tests (no WordPress required)",
 		"test:integration": "Run integration tests in wp-env",
 		"test:integration-ms": "Run integration tests in multisite mode in wp-env"
 	}
