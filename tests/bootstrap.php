@@ -44,7 +44,10 @@ foreach ( $argv_local as $arg ) {
 
 if ( $is_unit ) {
 	// Unit tests use Brain Monkey - no WordPress loaded.
-	// Autoloader already loaded above.
+	require_once dirname( __DIR__ ) . '/vendor/yoast/wp-test-utils/src/BrainMonkey/bootstrap.php';
+
+	// Load the base test case.
+	require_once __DIR__ . '/Unit/TestCase.php';
 	return;
 }
 
