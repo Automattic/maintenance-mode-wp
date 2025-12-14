@@ -46,6 +46,9 @@ if ( $is_unit ) {
 	// Unit tests use Brain Monkey - no WordPress loaded.
 	require_once dirname( __DIR__ ) . '/vendor/yoast/wp-test-utils/src/BrainMonkey/bootstrap.php';
 
+	// Load WordPress class stubs for unit tests.
+	require_once __DIR__ . '/stubs.php';
+
 	// Load the base test case.
 	require_once __DIR__ . '/Unit/TestCase.php';
 	return;
