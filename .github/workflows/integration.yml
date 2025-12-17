@@ -40,8 +40,8 @@ jobs:
           # Check lowest supported WP version, with the lowest supported PHP.
           - wordpress: '6.4'
             php: '7.4'
-          # Check latest WP with the highest supported PHP.
-          - wordpress: 'latest'
+          # Check latest WP with the latest PHP.
+          - wordpress: 'master'
             php: 'latest'
       fail-fast: false
 
