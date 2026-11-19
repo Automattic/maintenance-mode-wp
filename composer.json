@@ -1,6 +1,6 @@
 {
 	"name": "automattic/maintenance-mode-wp",
-	"description": "Shut down your site for a little while and do some maintenance on it!",
+	"description": "Shows site visitors a maintenance page, and restricts the REST API, while the site is under maintenance.",
 	"license": "GPL-2.0-or-later",
 	"type": "wordpress-plugin",
 	"authors": [
