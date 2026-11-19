@@ -13,12 +13,13 @@ This plugin is intentionally small. Before proposing a feature that expands its 
 
 ## Local development
 
-Integration tests use [`@wordpress/env`](https://www.npmjs.com/package/@wordpress/env), which requires Docker.
+Integration tests use [`@wordpress/env`](https://www.npmjs.com/package/@wordpress/env), which requires [Node.js](https://nodejs.org/), npm and Docker.
 
 ```bash
 git clone git@github.com:Automattic/maintenance-mode-wp.git
 cd maintenance-mode-wp
 composer install
+npm ci
 npx wp-env start
 ```
 
