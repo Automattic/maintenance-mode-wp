@@ -8,7 +8,7 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Tags: maintenance-mode, maintenance  
 Contributors: wpcomvip, automattic, benoitchantre, emrikol, philipjohn, GaryJ  
 
-Shut down your site for a little while and do some maintenance on it!
+Shows site visitors a maintenance page, and restricts the REST API, while the site is under maintenance.
 
 ## Description
 
