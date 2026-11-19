@@ -13,7 +13,6 @@ on:
   push:
     branches:
       - develop
-      - trunk
     paths:
       - '.github/workflows/integration.yml'
       - '**.php'

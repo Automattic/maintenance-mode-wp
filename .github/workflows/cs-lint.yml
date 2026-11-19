@@ -11,7 +11,6 @@ on:
   push:
     branches:
       - develop
-      - trunk
     paths:
       - '.github/workflows/cs-lint.yml'
       - '**.php'
