@@ -1,49 +1,60 @@
-#, fuzzy
+# Copyright (C) 2026 WordPress VIP, Automattic
+# This file is distributed under the GPL v2 or later.
 msgid ""
 msgstr ""
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
-"Project-Id-Version: Maintenance Mode\n"
-"POT-Creation-Date: 2017-03-01 22:42+0100\n"
-"PO-Revision-Date: 2017-03-01 22:32+0100\n"
-"Last-Translator: Benoît Chantre <mail@benoitchantre.com>\n"
-"Language-Team: \n"
+"Project-Id-Version: Maintenance Mode 0.3.2\n"
+"Report-Msgid-Bugs-To: https://github.com/Automattic/maintenance-mode-wp/issues\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.12\n"
-"X-Poedit-Basepath: ..\n"
-"X-Poedit-WPHeader: maintenance-mode.php\n"
-"X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
-"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;"
-"_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
-"X-Poedit-SearchPath-0: .\n"
-"X-Poedit-SearchPathExcluded-0: *.js\n"
+"POT-Creation-Date: 2026-11-19T15:57:36+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: maintenance-mode\n"
 
-#: template-maintenance-mode.php:7
-msgid "Howdy!"
-msgstr ""
-
-#: template-maintenance-mode.php:8
-msgid "We're just freshening things up a bit; back in a few!"
-msgstr ""
-
-#. Plugin Name of the plugin/theme
+#. Plugin Name of the plugin
+#: maintenance-mode.php
 msgid "Maintenance Mode"
 msgstr ""
 
-#. Plugin URI of the plugin/theme
-msgid "https://vip.wordpress.com/plugins/maintenance-mode/"
+#. Plugin URI of the plugin
+#: maintenance-mode.php
+msgid "https://github.com/Automattic/maintenance-mode-wp"
 msgstr ""
 
-#. Description of the plugin/theme
+#. Description of the plugin
+#: maintenance-mode.php
 msgid "Shut down your site for a little while and do some maintenance on it!"
 msgstr ""
 
-#. Author of the plugin/theme
-msgid "Automattic / WordPress.com VIP"
+#. Author of the plugin
+#: maintenance-mode.php
+msgid "WordPress VIP, Automattic"
 msgstr ""
 
-#. Author URI of the plugin/theme
-msgid "https://vip.wordpress.com"
+#. Author URI of the plugin
+#: maintenance-mode.php
+msgid "https://wpvip.com"
+msgstr ""
+
+#: maintenance-mode.php:43
+msgid "Maintenance Mode won't work until you set the VIP_MAINTENANCE_MODE constant to <code>true</code>."
+msgstr ""
+
+#: maintenance-mode.php:149
+msgid "REST API access is currently restricted while this site is undergoing maintenance."
+msgstr ""
+
+#: maintenance-mode.php:188
+msgid "Under maintenance"
+msgstr ""
+
+#: template-maintenance-mode.php:28
+msgid "Howdy!"
+msgstr ""
+
+#: template-maintenance-mode.php:29
+msgid "We're just freshening things up a bit; back in a few!"
 msgstr ""
