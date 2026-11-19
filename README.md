@@ -2,7 +2,7 @@
 
 Stable tag: 0.3.2  
 Requires at least: 6.4  
-Tested up to: 6.9  
+Tested up to: 7.1  
 License: GPLv2 or later  
 License URI: https://www.gnu.org/licenses/gpl-2.0.html  
 Tags: maintenance-mode, maintenance  
