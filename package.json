@@ -11,6 +11,7 @@
 		"bump:major": "bump major --commit 'Version %s.' package.json package-lock.json maintenance-mode.php README.md"
 	},
 	"devDependencies": {
+		"@wordpress/env": "^12.2.0",
 		"version-bump-prompt": "^6.1.0"
 	}
 }

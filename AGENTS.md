@@ -71,7 +71,7 @@ See `CONTRIBUTING.md` for setup, checks and the contribution workflow. Key point
 
 - Do not edit WordPress core files or bundled dependencies in `vendor/`.
 - Run `composer cs` before committing. CI will reject code standard violations.
-- Integration tests require `npx wp-env start` running first.
+- Integration tests require `npx --no wp-env start` running first. Run `npm ci` before it, so `npx` uses the `@wordpress/env` pinned in `package.json`. Always keep `--no`: without an installed `@wordpress/env`, plain `npx wp-env` fetches the unrelated `wp-env` package from npm.
 - The maintenance template must remain a separate file — themes may override it by placing a copy in their template directory.
 - Do not add complex features to this plugin. It is intentionally minimal. Feature requests that expand scope significantly should be questioned.
 - Be careful with capability checks — incorrect changes could either lock out admins or fail to show the maintenance page to visitors.
